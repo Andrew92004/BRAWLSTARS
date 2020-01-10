@@ -35,8 +35,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	 */
 	//size of jframe
 	int screen_width 	= 336*4;
-	int screen_height 	= 528/3*4;
-	int[][] Map = new int[21][33];
+	int screen_height 	= 528/2*4;
+	int[][] Map = new int[21][25];
 	
 	
 	
@@ -44,9 +44,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		super.paintComponent(g);
 		//food
 		g.setColor(new Color(100, 231, 100));
-		g.fillRect(0,256,2000,3000);
-
-		
+		g.fillRect(0,256,2000,1600);
+        g.fillRect(448, 0, 448, 256);
+		g.fillRect(448, 1600, 448, 256);
 
 	}
 	
@@ -56,10 +56,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 
-	public void updateBot(int id){
-		
-	}
-	//==================code above ===========================
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
