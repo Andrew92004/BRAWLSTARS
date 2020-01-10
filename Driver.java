@@ -47,7 +47,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		g.fillRect(0,256,2000,1600);
         g.fillRect(448, 0, 448, 256);
 		g.fillRect(448, 1600, 448, 256);
-
+		g.setColor(new Color(210, 180, 140));
+        g.fillRect(0, 0, 448, 256);
+        g.fillRect(896, 0, 448, 256);
+        g.fillRect(0, 1600, 448, 256);
+        g.fillRect(896, 1600, 448, 256);
 	}
 	
 	public void update() {
@@ -56,7 +60,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 
-	
+	public void updateBot(int id){
+		
+	}
 	
 
 	@Override
