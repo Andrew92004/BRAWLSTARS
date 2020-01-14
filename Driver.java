@@ -19,24 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Driver extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
-	/*Instructions
-	 * mouse to move
-	 * eat food and bots to get phat
-	 * space to boost
-	 * COMMENTS:
-	 * 
-	 * amazing game, the grid looks good.
-	 * good game
-	 * really cool game, looks similar to the actual game, but maybe make player and enemies color different, a little confusing
-	 * make the enemies diff color gj
-	 * the game is really accurate and  like how when you split you dash forwards.
-	 * 
-	 * 
-	 */
+
 	//size of jframe
 	int screen_width 	= 336*4;
 	int screen_height 	= 528/2*4;
-	int[][] Map = new int[21][25];
+	int[][] Map = new int[21][25];//21x25
 	
 	
 	
@@ -73,6 +60,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	public static void main(String[] arg) {
 		Driver d = new Driver();
+		
 	}
 	public Driver(){
 		JFrame f = new JFrame();
@@ -94,6 +82,135 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		
+		//images
+		// Map = 0 means no image
+		// Map = 1 means grass
+		// Map = 2 means crates
+		for(int i = 0; i < Map.length; i++){
+			for(int k = 0; k < Map[0].length; k++){
+				Map[i][k] = 0;
+			}
+		}
+		
+		// upper left hand square of grass
+		Map[1][1] = 1;
+		Map[2][1] = 1;
+		Map[1][2] = 1;
+		Map[2][2] = 1;
+		
+		// upper right hand square of grass
+		Map[1][18] = 1;
+		Map[1][19] = 1;
+		Map[2][18] = 1;
+		Map[2][19] = 1;
+		
+		// upper middle grass
+		Map[1][8] = 1;
+		Map[1][9] = 1;
+		Map[1][10] = 1;
+		Map[1][11] = 1;
+		Map[1][12] = 1;
+		
+		// middle left hand side of grass
+		Map[9][1] = 1;
+		Map[10][1] = 1;
+		Map[11][1] = 1;
+		Map[11][2] = 1;
+		Map[11][3] = 1;
+		
+		Map[13][3] = 1;
+		Map[13][2] = 1;
+		Map[13][1] = 1;
+		Map[14][1] = 1;
+		Map[15][1] = 1;
+		
+		// center grass
+		Map[8][8] = 1;
+		Map[8][9] = 1;
+		Map[8][10] = 1;
+		Map[8][11] = 1;
+		Map[8][12] = 1;
+		Map[9][8] = 1;
+		Map[9][10] = 1;
+		Map[9][12] = 1;
+		
+		Map[15][8] = 1;
+		Map[15][10] = 1;
+		Map[15][12] = 1;
+		Map[16][8] = 1;
+		Map[16][9] = 1;
+		Map[16][10] = 1;
+		Map[16][11] = 1;
+		Map[16][12] = 1;
+		
+		// bottom left hand square of grass
+		Map[22][1] = 1;
+		Map[22][2] = 1;
+		Map[23][1] = 1;
+		Map[23][2] = 1;
+		
+		// bottom right hand square of grass
+		Map[22][18] = 1;
+		Map[22][19] = 1;
+		Map[23][18] = 1;
+		Map[23][19] = 1;
+		
+		// bottom middle grass
+		Map[23][8] = 1;
+		Map[23][9] = 1;
+		Map[23][10] = 1;
+		Map[23][11] = 1;
+		Map[23][12] = 1;
+		
+		// upper center boxes
+		Map[2][6] = 2;
+		Map[2][7] = 2;
+		Map[2][8] = 2;
+		Map[2][9] = 2;
+		Map[2][10] = 2;
+		Map[2][11] = 2;
+		Map[2][12] = 2;
+		Map[2][13] = 2;
+		Map[2][14] = 2;
+		
+		// left hand side crates
+		Map[4][6] = 2;
+		Map[4][7] = 2;
+		Map[5][7] = 2;
+		
+		Map[6][1] = 2;
+		Map[6][2] = 2;
+		Map[7][2] = 2;
+		Map[8][2] = 2;
+		Map[8][3] = 2;
+		
+		Map[12][3] = 2;
+		Map[12][2] = 2;
+		Map[13][2] = 2;
+		Map[14][2] = 2;
+		Map[14][1] = 2;
+		
+		Map[15][5] = 2;
+		Map[16][5] = 2;
+		Map[16][4] = 2;
+		
+		// center crates
+		Map[7][9] = 2;
+		Map[7][11] = 2;
+		Map[8][8] = 2;
+		Map[8][9] = 2;
+		Map[8][10] = 2;
+		Map[8][11] = 2;
+		Map[8][12] = 2;
+		
+		Map[12][8] = 2;
+		Map[12][9] = 2;
+		Map[12][10] = 2;
+		Map[12][11] = 2;
+		Map[12][12] = 2;
+		
+		
 	}
 	Timer t;
 
