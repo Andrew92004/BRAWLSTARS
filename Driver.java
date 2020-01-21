@@ -1,7 +1,7 @@
 import java.applet.Applet;
-import java.awt.*
+import java.awt.*;
 import java.util.Vector;
-import javax.swing.*
+import javax.swing.*;
 
 public class Driver extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
 
