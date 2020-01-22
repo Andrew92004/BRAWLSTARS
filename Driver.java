@@ -1,15 +1,34 @@
 import java.applet.Applet;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
 import java.util.Vector;
-import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Driver extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
 
 	//size of jframe
 	int screen_width 	= 336*4;
 	int screen_height 	= 528/2*4;
-	int[][] Map = new int[21][25];//21x25
-	
+	int[][] Map = new int[25][21];
+	Grass[] bush = new Grass[80];
+	Crates[]crates = new Crates[80];
+	int z = 0;
+	int c = 0;
+	Grass b = new Grass(10,10,"bush.png");
 	
 	
 	public void paint(Graphics g) {
@@ -24,6 +43,19 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
         g.fillRect(896, 0, 448, 256);
         g.fillRect(0, 1600, 448, 256);
         g.fillRect(896, 1600, 448, 256);
+        
+        for (int i = 0; i < bush.length; i++) {
+        	if (bush[i] != null){
+			bush[i].paint(g);
+        	}
+		}
+        //b.paint(g);
+        for (int i = 0; i < crates.length; i++) {
+			if(crates[i] != null){
+        	crates[i].paint(g);
+			}
+		}
+       
 	}
 	
 	public void update() {
@@ -129,6 +161,19 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[16][11] = 1;
 		Map[16][12] = 1;
 		
+		// middle right hand side grass
+		Map[9][19] = 1;
+		Map[10][19] = 1;
+		Map[11][19] = 1;
+		Map[11][18] = 1;
+		Map[11][17] = 1;
+		
+		Map[13][17] = 1;
+		Map[13][18] = 1;
+		Map[13][19] = 1;
+		Map[14][19] = 1;
+		Map[15][19] = 1;
+		
 		// bottom left hand square of grass
 		Map[22][1] = 1;
 		Map[22][2] = 1;
@@ -230,6 +275,24 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[22][12] = 2;
 		Map[22][13] = 2;
 		Map[22][14] = 2;
+		 for(int i = 0; i < 25; i++){
+	        	for(int k = 0; k < 21; k++){
+	        		if(Map[i][k] == 1){
+	        			bush[z] = new Grass(k*64, i*64+256,"bush.png");
+	        			z++;
+	        		}
+	        	}
+	        }
+		 for(int i = 0; i < 25; i++){
+	        	for(int k = 0; k < 21; k++){	        		
+	        		if(Map[i][k] == 2){
+	        			crates[c] = new Crates(k*64, i*64+256,"crate.png");
+	        			c++;
+	        		}
+	        	}
+	        }
+		
+		
 	}
 	Timer t;
 
