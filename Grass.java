@@ -63,6 +63,9 @@ private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 // draw the affinetransform
 public void paint(Graphics g) {
 	Graphics2D g2 = (Graphics2D) g;
+	float alpha = 0.5;
+	AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
+	g2.setComposite(ac);
 	g2.drawImage(img, tx, null);
 }
 private void init(double a, double b) {
