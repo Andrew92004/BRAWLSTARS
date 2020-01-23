@@ -76,5 +76,9 @@ public class Shelly extends Brawler {
 					}
 				return tempImage;
 				}
-	
+	/*public boolean collided(int ox, int oy, int ow, int oh) {
+		Rectangle obs = new Rectangle(ox, oy, ow, oh);
+		Rectangle brawler = new Rectangle(x, y, width, height);
+		return obs.intersects(brawler);
+	}*/
 }
