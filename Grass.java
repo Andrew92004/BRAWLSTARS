@@ -63,9 +63,7 @@ private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 
 // draw the affinetransform
 public void paint(Graphics g) {
-	Graphics2D g2 = (Graphics2D) g;
-	// working on this rn to make transparent
-	float alpha = (float) 0.7;
+	Graphics2D g2 = (Graphics2D) g;	float alpha = (float) 0.7;
 	AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
 	g2.setComposite(ac);
 	
