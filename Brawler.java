@@ -1,6 +1,8 @@
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
@@ -68,6 +70,11 @@ public class Brawler {
 			vy = 3;
 		}
 		else if (ud==-1) vy = 0;
+	}
+	public boolean collided(int ox, int oy, int ow, int oh) {
+		Rectangle obs = new Rectangle(ox, oy, ow, oh);
+		Rectangle brawler = new Rectangle(x, y, width, height);
+		return obs.intersects(brawler);
 	}
 	
 	public double getAngle(int mx, int my){
