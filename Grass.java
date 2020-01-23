@@ -1,3 +1,4 @@
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -63,12 +64,14 @@ private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 // draw the affinetransform
 public void paint(Graphics g) {
 	Graphics2D g2 = (Graphics2D) g;
-	/* working on this rn to make transparent
-	float alpha = 0.5;
+	// working on this rn to make transparent
+	float alpha = (float) 0.7;
 	AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,alpha);
 	g2.setComposite(ac);
-	*/
+	
 	g2.drawImage(img, tx, null);
+	g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC));
+
 }
 private void init(double a, double b) {
 	tx.setToTranslation(a, b);
