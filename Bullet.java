@@ -11,14 +11,22 @@ public class Bullet {
 	private int vx, vy, vel;
 	private double theta;
 	private int scale;
-	public Bullet(String team, int startX, int startY, int v, double angle){
-		
+	private int damage;
+	private int type;
+	private int effect;
+	public int team;
+	public Bullet(int team, int startX, int startY, int v, double angle, int damage, int type, int effect){
+		this.team = team;
 		x = startX;
 		y = startY;
 		theta = 0;
 		vel = v;
 		//range = 7
+		theta = angle;
 		scale = 4;
+		this.damage = damage;
+		this.type = type;
+		this.effect = effect;
 		System.out.println(theta);
 	}
 	
@@ -56,7 +64,10 @@ public class Bullet {
 	public int getScale() {
 		return scale;
 	}
-
+	
+	public void onHit(Brawler b){
+		
+	}
 
 	public void move(){
 		vx= -(int)(vel*Math.sin(theta));
