@@ -12,10 +12,10 @@ public class Bullet {
 	private double theta;
 	private int scale;
 	private int damage;
-	private int type;
+	public int size;
 	private int effect;
 	public int team;
-	public Bullet(int team, int startX, int startY, int v, double angle, int damage, int type, int effect){
+	public Bullet(int team, int startX, int startY, int v, double angle, int damage, int size, int effect){
 		this.team = team;
 		x = startX;
 		y = startY;
@@ -25,7 +25,7 @@ public class Bullet {
 		theta = angle;
 		scale = 4;
 		this.damage = damage;
-		this.type = type;
+		this.size = size;
 		this.effect = effect;
 		System.out.println(theta);
 	}
@@ -66,7 +66,9 @@ public class Bullet {
 	}
 	
 	public void onHit(Brawler b){
-		
+		if (effect == 1){
+			b.vel = 1;
+		}
 	}
 
 	public void move(){
@@ -74,5 +76,9 @@ public class Bullet {
 		vy = -(int)(vel*Math.cos(theta));
 		x+=vx;
 		y+=vy;
+	}
+	
+	public boolean collided(int tarX, int tarY, int tarR) {
+		return (tarX*tarX + tarY*tarY) < (tarR+size)*(tarR+size);
 	}
 }
