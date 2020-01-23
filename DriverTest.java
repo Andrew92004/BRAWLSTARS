@@ -59,7 +59,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			//System.out.println("bullet " +i);
 			Bullet b = bullets.get(i);
 			b.move();
-			g.drawOval(b.getX(),b.getY(),10,10);
+			if (b.team == 0){
+				g.setColor(new Color(0,0,255));
+			}else{
+				
+			}
+			g.fillOval(b.getX(),b.getY(),10,10);
 		}
 	}
 	
