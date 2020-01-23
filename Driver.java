@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -28,22 +29,35 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Crates[]crates = new Crates[80];
 	int z = 0;
 	int c = 0;
-	Grass b = new Grass(10,10,"bush.png");
+	Brawler brawler;
+	int[] pp = {200,200};
+	Shelly bea = new Shelly(0,pp);
+	
+	int[] mou = {0,0};
 	
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		//food
 		g.setColor(new Color(100, 231, 100));
-		g.fillRect(0,256,2000,1600);
-        g.fillRect(448, 0, 448, 256);
-		g.fillRect(448, 1600, 448, 256);
-		g.setColor(new Color(210, 180, 140));
-        g.fillRect(0, 0, 448, 256);
-        g.fillRect(896, 0, 448, 256);
-        g.fillRect(0, 1600, 448, 256);
-        g.fillRect(896, 1600, 448, 256);
-        
+		g.fillRect(0,0,2000,1600);
+
+		bea.paint(g);
+		//g.drawOval(bea.getX(), bea.getY(), 10, 10);
+		g.drawOval(mou[0],mou[1],10,10);
+		
+		for (int i = 0; i < bullets.size(); i++){
+			//System.out.println("bullet " +i);
+			Bullet b = bullets.get(i);
+			b.move();
+			if (b.team == 0){
+				g.setColor(new Color(0,0,255));
+			}else{
+				
+			}
+			g.fillOval(b.getX(),b.getY(),10,10);
+		}
+		
         for (int i = 0; i < bush.length; i++) {
         	if (bush[i] != null){
 			bush[i].paint(g);
@@ -55,6 +69,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
         	crates[i].paint(g);
 			}
 		}
+        
+		
+      
        
 	}
 	
@@ -64,13 +81,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 
-	public void updateBot(int id){
-		
-	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		bea.move();
 		update();
 		repaint();
 	}
@@ -90,7 +105,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		//constructor
 		//initialize structures
-		
+	
 
 		f.add(this);
 
@@ -278,7 +293,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		 for(int i = 0; i < 25; i++){
 	        	for(int k = 0; k < 21; k++){
 	        		if(Map[i][k] == 1){
-	        			bush[z] = new Grass(k*64, i*64+256,"bush.png");
+	        			bush[z] = new Grass(k*64, i*64,"bush.png");
 	        			z++;
 	        		}
 	        	}
@@ -286,12 +301,13 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		 for(int i = 0; i < 25; i++){
 	        	for(int k = 0; k < 21; k++){	        		
 	        		if(Map[i][k] == 2){
-	        			crates[c] = new Crates(k*64, i*64+256,"crate.png");
+	        			crates[c] = new Crates(k*64, i*64,"crate.png");
 	        			c++;
 	        		}
 	        	}
 	        }
-		
+		//Rgoal[0] = new Redgoal(448,256-64,"redgoal.png");
+		//Rgoal[1] = new Redgoal(448,256-64+2000,"redgoal.png");
 		
 	}
 	Timer t;
@@ -299,19 +315,26 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//boost stuff
-	
+		if (e.getKeyCode()==37) {bea.controlMove(37, 0);}
+		if (e.getKeyCode()==39) {bea.controlMove(39, 0);}
+		if (e.getKeyCode()==38) {bea.controlMove(0, 38);}
+		if (e.getKeyCode()==40) {bea.controlMove(0, 40);}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		//allow to boost again once key is released
-		
+		if (e.getKeyCode()==37) {bea.controlMove(-1, 0);}
+		if (e.getKeyCode()==39) {bea.controlMove(-1, 0);}
+		if (e.getKeyCode()==38) {bea.controlMove(0, -1);}
+		if (e.getKeyCode()==40) {bea.controlMove(0, -1);}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		System.out.println("CLICK");
+		bea.shoot(bullets);
 	}
 
 	@Override
@@ -353,7 +376,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	@Override
 	public void mouseMoved(MouseEvent m) {
 		// TODO Auto-generated method stub
-		
+		bea.spin(bea.getAngle(m.getX()-2,m.getY()-20));
+		mou[0] = m.getX()-2;
+		mou[1] = m.getY()-20;
 		//System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
 
