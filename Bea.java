@@ -23,47 +23,40 @@ public class Bea extends Brawler {
 		scale = 2;
 		width = 128;
 		height = 128;
+		img = getImage("bea.png");
 		// range = 7
 		init(p[0], p[1]);
-	}
-	public void update(){
-		if (collide()) {
-			charged = true;
-		}
-		if (charged == true) {
-			img = getImage("beabeecharged.png");
-		} else {
-			img = getImage("beabeenotcharged.png");
-		}
-		move();
-	}
-
-	public void shootSuper(ArrayList<Bullet> bullets) {
-		for (int i = 0; i < 9; i++){
-			bullets.add(new Bullet(team,x+64,y+60,7,theta,140,2,0));
-		}
-		superCharge =0;
 	}
 
 	public void shoot(ArrayList<Bullet> bullets) {
 		if (charged == true) {
 			bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 3080, 2, 0));
-
+			System.out.println("Bea CHARGE");
 		} else {
 			bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 1120, 2, 0));
 		}
 		ammo--;
 		reload = reloadSpeed;
 		inCombat = true;
-		if (collide()) {
-			superCharge++;
-		}
-		if (superCharge == 3) {
-			beaSuper = true;
-		}
-		charged= false;
+		charged= !charged;
 	}
-
+	
+	public void update(int fps, ArrayList<Bullet> bullets){
+		if (reload>0){
+			reload-=1/fps;
+			if (reload==0){
+				ammo++;
+				if (ammo != 3) reload=reloadSpeed;
+			}
+		}
+		if (charged == true) {
+			img = getImage("beaC.png");
+		} else {
+			img = getImage("bea.png");
+		}
+		move();
+	}
+	
 	// MOVEMENT
 	public void move() {
 		tx.translate(vy * Math.cos(Math.PI / 2 + theta) / scale,
