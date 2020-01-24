@@ -6,14 +6,14 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 
-public class Crates {
+public class Crate {
 
 private int x;
 private int y;
 private int width;
  private int height;
  private Image img;
-public Crates(int paramX, int paramY, String filename){
+public Crate(int paramX, int paramY, String filename){
 x = paramX;
 y = paramY;	
 width = 16;
@@ -84,7 +84,7 @@ public void setImg(Image img) {
 private Image getImage(String path) {
 	Image tempImage = null;
 	try {
-		URL imageURL = Crates.class.getResource(path);
+		URL imageURL = Crate.class.getResource(path);
 		tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
 	} catch (Exception e) {
 		e.printStackTrace();
