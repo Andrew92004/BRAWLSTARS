@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class Colt extends Brawler {
 	double scale;
+	int shotTimer;
 	
 	public Colt(int t, int[] p) {
 		super(t, p);
@@ -27,14 +28,22 @@ public class Colt extends Brawler {
 	
 	
 	public void shoot(ArrayList<Bullet> bullets){
-		for (int i = 0; i < 5; i++){
-			bullets.add(new Bullet("beabulletC.png",x,y,10,theta));
-		}
 		ammo--;
 		reload = reloadSpeed;
 		inCombat = true;
+		shotTimer = 18;
+	}
+	public void coltTimer(ArrayList<Bullet> bullets){
+		if (shotTimer<=0) return;
+		if (shotTimer%3==0){
+			for (int i = 0; i < 5; i++){
+				bullets.add(new Bullet(team,x+64,y+60,18,theta,140,2,0));
+			}
+		}
+		shotTimer --;
 	}
 	//MOVEMENT
+	
 			public void move(){
 				tx.translate(vy*Math.cos(Math.PI/2+theta)/scale,vy*Math.sin(Math.PI/2+theta)/scale);
 				tx.translate(vx*Math.cos(theta)/scale,vx*Math.sin(theta)/scale);
