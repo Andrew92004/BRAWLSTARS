@@ -30,11 +30,20 @@ public class Shelly extends Brawler {
 	public void shoot(ArrayList<Bullet> bullets){
 		System.out.println("d " +theta);
 		for (int i = 0; i < 5; i++){
-			bullets.add(new Bullet("beabulletC.png",x,y,10,theta));
+			bullets.add(new Bullet(team,x,y,10,theta,420,0,0));
 		}
 		ammo--;
 		reload = reloadSpeed;
 		inCombat = true;
+	}
+	public void update(int fps, ArrayList<Bullet> bullets){
+		if (reload>0){
+			reload-=1/fps;
+			if (reload==0){
+				ammo++;
+				if (ammo != 3) reload=reloadSpeed;
+			}
+		}
 	}
 	//MOVEMENT
 			public void move(){
@@ -76,9 +85,5 @@ public class Shelly extends Brawler {
 					}
 				return tempImage;
 				}
-	/*public boolean collided(int ox, int oy, int ow, int oh) {
-		Rectangle obs = new Rectangle(ox, oy, ow, oh);
-		Rectangle brawler = new Rectangle(x, y, width, height);
-		return obs.intersects(brawler);
-	}*/
+	
 }
