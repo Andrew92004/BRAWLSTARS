@@ -70,6 +70,14 @@ public class Bullet {
 			b.vel = 1;
 		}
 	}
+	
+	public int getDamage(){
+		return damage;
+	}
+	
+	public int getEffect(){
+		return effect;
+	}
 
 	public void move(){
 		vx= -(int)(vel*Math.sin(theta));
@@ -79,6 +87,6 @@ public class Bullet {
 	}
 	
 	public boolean collided(int tarX, int tarY, int tarR) {
-		return (tarX*tarX + tarY*tarY) < (tarR+size)*(tarR+size);
+		return ((x-tarX)*(x-tarX) + (y-tarY)*(y-tarY)) < (tarR+size)*(tarR+size);
 	}
 }
