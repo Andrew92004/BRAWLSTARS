@@ -26,15 +26,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int screen_height 	= 528/2*4;
 	int[][] Map = new int[25][21];
 	Grass[] bush = new Grass[80];
-	Crates[]crates = new Crates[80];
-	int z = 0;
-	int c = 0;
-	Brawler brawler;
-	int[] pp = {200,200};
-	Shelly bea = new Shelly(0,pp);
-	
-	int[] mou = {0,0};
-	
+	Crate[] crates = new Crate[80];
+	Brawler[] brawlers = new Brawler[8];
+	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+	Bea bea = new Bea(0, new int[] {200,200});
+	Colt dummy = new Colt(1,new int[] {200,600});
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -43,13 +39,14 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		g.fillRect(0,0,2000,1600);
 
 		bea.paint(g);
+		dummy.paint(g);
+		
+
 		//g.drawOval(bea.getX(), bea.getY(), 10, 10);
-		g.drawOval(mou[0],mou[1],10,10);
 		
 		for (int i = 0; i < bullets.size(); i++){
 			//System.out.println("bullet " +i);
 			Bullet b = bullets.get(i);
-			b.move();
 			if (b.team == 0){
 				g.setColor(new Color(0,0,255));
 			}else{
@@ -70,14 +67,35 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			}
 		}
         
-		
+		g.drawRect(dummy.getX(), dummy.getY(), 128, 128);
       
        
 	}
 	
 	public void update() {
-		//Player Movement
-		repaint();
+		//bullet Movement
+		for (int i = 0; i < bullets.size(); i ++){
+			Bullet b = bullets.get(i);
+			b.move();
+			for (int j = 0; j < brawlers.length; j++){
+				Brawler tar = dummy;
+				if (b.team == tar.team) {
+					System.out.println("NO");
+					continue;
+					}
+				if (b.collided(tar.getX()+64, tar.getY()+64,64)){
+					tar.takeDamage(b.getDamage(), b.getEffect());
+					b.onHit(tar);
+					bullets.remove(i);
+					i--;
+					break;
+				}
+			}
+		}
+		dummy.update(screen_height, bullets);
+		dummy.move();
+		dummy.controlMove(39, 0);
+		System.out.println("dummy: "+dummy.getHP());
 
 	}
 
@@ -290,6 +308,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[22][12] = 2;
 		Map[22][13] = 2;
 		Map[22][14] = 2;
+		int z = 0;
+		int c = 0;
 		 for(int i = 0; i < 25; i++){
 	        	for(int k = 0; k < 21; k++){
 	        		if(Map[i][k] == 1){
@@ -301,7 +321,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		 for(int i = 0; i < 25; i++){
 	        	for(int k = 0; k < 21; k++){	        		
 	        		if(Map[i][k] == 2){
-	        			crates[c] = new Crates(k*64, i*64,"crate.png");
+	        			crates[c] = new Crate(k*64, i*64,"crate.png");
 	        			c++;
 	        		}
 	        	}
@@ -377,8 +397,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	public void mouseMoved(MouseEvent m) {
 		// TODO Auto-generated method stub
 		bea.spin(bea.getAngle(m.getX()-2,m.getY()-20));
-		mou[0] = m.getX()-2;
-		mou[1] = m.getY()-20;
 		//System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
 
