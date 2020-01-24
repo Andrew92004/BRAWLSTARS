@@ -33,7 +33,26 @@ public class Colt extends Brawler {
 		inCombat = true;
 		shotTimer = 18;
 	}
-	public void coltTimer(ArrayList<Bullet> bullets){
+	public void update(int fps, ArrayList<Bullet> bullets){
+		if (reload>0){
+			reload-=1/fps;
+			if (reload==0){
+				ammo++;
+				if (ammo != 3) reload=reloadSpeed;
+			}
+		}
+		
+		if (HP<=0){
+			HP = maxHP;
+			x = xi;
+			y = yi;
+			ammo = 3;
+			init(x,y);
+		}
+		shotPattern(bullets);
+
+	}
+	public void shotPattern(ArrayList<Bullet> bullets){
 		if (shotTimer<=0) return;
 		if (shotTimer%3==0){
 			for (int i = 0; i < 5; i++){
