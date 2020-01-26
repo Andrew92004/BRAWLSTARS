@@ -226,24 +226,21 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		bea1.update(fps, bullets);
 
 		// movement
-		if (bea0.getY() > -100 && bea0.getY() < 1600) {
-			if (keys[68]) {
-				bea0.controlMove(2, -1);
-			} else if (keys[65]) {
-				bea0.controlMove(1, -1);
-			} else {
-				bea0.controlMove(0, -1);
-			}
-
-			if (keys[87]) {
-				bea0.controlMove(-1, 1);
-			} else if (keys[83]) {
-				bea0.controlMove(-1, 2);
-			} else {
-				bea0.controlMove(-1, 0);
-			}
+		if (keys[68]) {
+			bea0.controlMove(2, -1);
+		} else if (keys[65]) {
+			bea0.controlMove(1, -1);
+		} else {
+			bea0.controlMove(0, -1);
 		}
-		
+
+		if (keys[87]) {
+			bea0.controlMove(-1, 1);
+		} else if (keys[83]) {
+			bea0.controlMove(-1, 2);
+		} else {
+			bea0.controlMove(-1, 0);
+		}
 	}
 
 	@Override
