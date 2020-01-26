@@ -14,14 +14,14 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Crate[] crates = new Crate[80];
 	// [0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	Shelly shelly0 = new Shelly(0, new int[] { 620, 1125 });
-	Shelly shelly1 = new Shelly(1, new int[] { 620, 325 });
-	Bea bea0 = new Bea(0, new int[] { 815, 1125 });
-	Bea bea1 = new Bea(1, new int[] { 815, 325 });
-	Colt colt0 = new Colt(0, new int[] { 365, 1125 });
-	Colt colt1 = new Colt(1, new int[] { 365, 325 });
-	Safe safe0 = new Safe(0, new int[] { 600, 1650 });
-	Safe safe1 = new Safe(1, new int[] { 600, -200 });
+	Shelly shelly0 = new Shelly(0, new int[] { 620, 1650 });
+	Shelly shelly1 = new Shelly(1, new int[] { 620, -200 });
+	Bea bea0 = new Bea(0, new int[] { 815, 1650 });
+	Bea bea1 = new Bea(1, new int[] { 815, -200 });
+	Colt colt0 = new Colt(0, new int[] { 365, 1650 });
+	Colt colt1 = new Colt(1, new int[] { 365, -200 });
+	Safe safe0 = new Safe(0, new int[] { 600, 1125 });
+	Safe safe1 = new Safe(1, new int[] { 600, 325 });
 	int fps = 60;
 	int camY = -700;
 
@@ -212,8 +212,21 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 
 		// brawler update
+		Brawler[] brls = new Brawler[6];
+		brls[0] = shelly0;
+		brls[1] = shelly1;
+		brls[2] = colt0;
+		brls[3] = colt1;
+		brls[4] = bea0;
+		brls[5] = bea1;
+		
+		for (int i = 0; i < brls.length; i++) {
+			
+		}
+		
 		shelly0.constrainMove(crates);
 		shelly0.update(fps, bullets);
+		
 		shelly0.runBot(bullets, shelly1, safe1);
 
 		shelly1.constrainMove(crates);
