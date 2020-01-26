@@ -114,7 +114,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 					for (int j = 0; j < tars.length; j++) {
 						Brawler tar = tars[j];
 						if (b.team == tar.team) {
-							System.out.println("NO");
 							continue;
 						}
 						if (b.collided(tar.getX() + 59, tar.getY() + 62, 46)) {
