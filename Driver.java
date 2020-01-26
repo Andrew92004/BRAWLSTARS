@@ -20,8 +20,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Bea bea1 = new Bea(1, new int[] { 815, -200 });
 	Colt colt0 = new Colt(0, new int[] { 365, 1650 });
 	Colt colt1 = new Colt(1, new int[] { 365, -200 });
-	Safe safe0 = new Safe(0, new int[] { 600, 1125 });
-	Safe safe1 = new Safe(1, new int[] { 600, 325 });
+	Safe safe0 = new Safe(0, new int[] { 600, 1225 });
+	Safe safe1 = new Safe(1, new int[] { 600, 225 });
 	int fps = 60;
 	int camY = -700;
 
@@ -325,11 +325,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[2][19] = 1;
 
 		// upper middle grass
-		Map[1][8] = 1;
-		Map[1][9] = 1;
-		Map[1][10] = 1;
-		Map[1][11] = 1;
-		Map[1][12] = 1;
+		/*
+		 * Map[1][8] = 1; Map[1][9] = 1; Map[1][10] = 1; Map[1][11] = 1; Map[1][12] = 1;
+		 */
 
 		// middle left hand side of grass
 		Map[9][1] = 1;
@@ -394,21 +392,17 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[23][19] = 1;
 
 		// bottom middle grass
-		Map[23][8] = 1;
-		Map[23][9] = 1;
-		Map[23][10] = 1;
-		Map[23][11] = 1;
-		Map[23][12] = 1;
+		/*
+		 * Map[23][8] = 1; Map[23][9] = 1; Map[23][10] = 1; Map[23][11] = 1; Map[23][12]
+		 * = 1;
+		 */
 
 		// upper center boxes
 		// Map[2][6] = 2;
-		Map[2][7] = 2;
-		Map[2][8] = 2;
-		Map[2][9] = 2;
-		Map[2][10] = 2;
-		Map[2][11] = 2;
-		Map[2][12] = 2;
-		Map[2][13] = 2;
+		/*
+		 * Map[2][7] = 2; Map[2][8] = 2; Map[2][9] = 2; Map[2][10] = 2; Map[2][11] = 2;
+		 * Map[2][12] = 2; Map[2][13] = 2;
+		 */
 		// Map[2][14] = 2;
 
 		// left hand side crates
@@ -470,13 +464,10 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		// bottom middle crates
 		// Map[22][6] = 2;
-		Map[22][7] = 2;
-		Map[22][8] = 2;
-		Map[22][9] = 2;
-		Map[22][10] = 2;
-		Map[22][11] = 2;
-		Map[22][12] = 2;
-		Map[22][13] = 2;
+		/*
+		 * Map[22][7] = 2; Map[22][8] = 2; Map[22][9] = 2; Map[22][10] = 2; Map[22][11]
+		 * = 2; Map[22][12] = 2; Map[22][13] = 2;
+		 */
 		// Map[22][14] = 2;
 		int z = 0;
 		int c = 0;
