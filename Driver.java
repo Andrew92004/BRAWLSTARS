@@ -23,6 +23,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Safe safe0 = new Safe(0, new int[] { 800, 200 });
 	Safe safe1 = new Safe(1, new int[] { 800, 600 });
 	int fps = 60;
+	int camY = 0;
 
 	int player = 0;
 
@@ -34,7 +35,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
-
+		g.translate(0, camY);
+		
 		// draw brawlers
 		safe0.paint(g);
 		safe1.paint(g);
@@ -179,8 +181,10 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		if (keys[87]) {
 			bea0.controlMove(-1, 1);
+			camY+=3;
 		} else if (keys[83]) {
 			bea0.controlMove(-1, 2);
+			camY-=3;
 		} else {
 			bea0.controlMove(-1, 0);
 		}
@@ -495,7 +499,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	public void mouseMoved(MouseEvent m) {
 		// TODO Auto-generated method stub
 		// bea.spin(bea.getAngle(m.getX()-2,m.getY()-20));
-		bea0.spin(bea0.getAngle(m.getX() - 2, m.getY() - 20));
+		bea0.spin(bea0.getAngle(m.getX() - 2, m.getY() - 20 - camY));
 		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
 
