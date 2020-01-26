@@ -79,17 +79,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// ammo bar for bea0
 		g.setColor(new Color(255, 215, 0));
 		g.fillRect(bea0.getX() + 30, bea0.getY() - 10, (int) (66 * bea0.ammo / 3), 10);
-
-		// draw brawlers
-		safe0.paint(g);
-		safe1.paint(g);
-		shelly0.paint(g);
-		shelly1.paint(g);
-		colt0.paint(g);
-		colt1.paint(g);
-		bea0.paint(g);
-		bea1.paint(g);
-
+		//draw bullets
 		for (int i = 0; i < bullets.size(); i++) {
 			// System.out.println("bullet " +i);
 			Bullet b = bullets.get(i);
@@ -100,19 +90,31 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			}
 			g.fillOval(b.getX(), b.getY(), 10, 10);
 		}
+		
+		// draw brawlers
+		safe0.paint(g);
+		safe1.paint(g);
+		shelly0.paint(g);
+		shelly1.paint(g);
+		colt0.paint(g);
+		colt1.paint(g);
+		bea0.paint(g);
+		bea1.paint(g);
 
+
+		//draw bushes
 		for (int i = 0; i < bush.length; i++) {
 			if (bush[i] != null) {
 				bush[i].paint(g);
 			}
 		}
-		// b.paint(g);
+		// draw crates
 		for (int i = 0; i < crates.length; i++) {
 			if (crates[i] != null) {
 				crates[i].paint(g);
 			}
 		}
-
+		//check win/loss
 		if (safe1.getHP() <= 0) {
 			g.setColor(new Color(100, 231, 100));
 			g.fillRect(0, 0, screen_width, screen_height);
@@ -156,8 +158,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			tars[1] = shelly1;
 			tars[2] = colt0;
 			tars[3] = colt1;
-			tars[4] = bea0;
 			tars[5] = bea1;
+			tars[4] = bea0;
 			// brawler collision
 			for (int j = 0; j < tars.length; j++) {
 				Brawler tar = tars[j];
@@ -476,7 +478,16 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	}
 
 	Timer t;
+	@Override
+	public void mouseClicked(MouseEvent e) {
 
+		// bea.shoot(bullets);
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			System.out.println("CLICK");
+			bea0.shoot(bullets);
+		}
+
+	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		/*
@@ -509,16 +520,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
 
-		// bea.shoot(bullets);
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			System.out.println("CLICK");
-			bea0.shoot(bullets);
-		}
-
-	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
