@@ -64,27 +64,75 @@ public class Shelly extends Brawler {
 		move();
 	}
 
-	public void runBot(ArrayList<Bullet> bullets, Brawler brl, Safe safe) {
-		Brawler tar = brl;
+	public void runBot(ArrayList<Bullet> bullets, Brawler brl1,Brawler brl2, Brawler brl3, Safe safe) {
+		Brawler tar1 = brl1;
+		Brawler tar2 = brl2;
+		Brawler tar3 = brl3;
+		
 		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
-			tar = safe;
+			tar1= safe;
 		}
-		if ((x - tar.getX()) * (x - tar.getX()) + (y - tar.getY()) * (y - tar.getY()) <= 300 * 300) {
-			spin(getAngle(tar.getX() + 64, tar.getY() + 128));
+		if ((x - tar1.getX()) * (x - tar1.getX()) + (y - tar1.getY()) * (y - tar1.getY()) <= 200 * 200) {
+			spin(getAngle(tar1.getX() + 64, tar1.getY() + 128));
 			if (ammo == 3) {
 				shoot(bullets);
 			}
 		}
-		if (tar.getX() > x + 64)
+		if (tar1.getX() > x + 64)
 			controlMove(2, -1);
-		else if (tar.getX() + 64 < x)
+		else if (tar1.getX() + 64 < x)
 			controlMove(1, -1);
 		else
 			controlMove(0, -1);
 
-		if (tar.getY() > y + 64)
+		if (tar1.getY() > y + 64)
 			controlMove(-1, 2);
-		else if (tar.getY() + 64 < x)
+		else if (tar1.getY() + 64 < x)
+			controlMove(-1, 1);
+		else
+			controlMove(-1, 0);
+		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
+			tar2= safe;
+		}
+		if ((x - tar2.getX()) * (x - tar2.getX()) + (y - tar2.getY()) * (y - tar2.getY()) <= 200 * 200) {
+			spin(getAngle(tar2.getX() + 64, tar2.getY() + 128));
+			if (ammo == 3) {
+				shoot(bullets);
+			}
+		}
+		if (tar2.getX() > x + 64)
+			controlMove(2, -1);
+		else if (tar2.getX() + 64 < x)
+			controlMove(1, -1);
+		else
+			controlMove(0, -1);
+
+		if (tar2.getY() > y + 64)
+			controlMove(-1, 2);
+		else if (tar2.getY() + 64 < x)
+			controlMove(-1, 1);
+		else
+			controlMove(-1, 0);
+
+		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
+			tar3= safe;
+		}
+		if ((x - tar3.getX()) * (x - tar3.getX()) + (y - tar3.getY()) * (y - tar3.getY()) <= 200 * 200) {
+			spin(getAngle(tar3.getX() + 64, tar3.getY() + 128));
+			if (ammo == 3) {
+				shoot(bullets);
+			}
+		}
+		if (tar3.getX() > x + 64)
+			controlMove(2, -1);
+		else if (tar3.getX() + 64 < x)
+			controlMove(1, -1);
+		else
+			controlMove(0, -1);
+
+		if (tar3.getY() > y + 64)
+			controlMove(-1, 2);
+		else if (tar3.getY() + 64 < x)
 			controlMove(-1, 1);
 		else
 			controlMove(-1, 0);
