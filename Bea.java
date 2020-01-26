@@ -9,59 +9,49 @@ import java.util.ArrayList;
 public class Bea extends Brawler {
 	double scale;
 	boolean charged;
-	int superCharge;
-	boolean beaSuper;
 
 	public Bea(int t, int[] p) {
 		super(t, p);
-		beaSuper = false;
-		superCharge = 0;
-		maxCharge = 3360;
 		reloadSpeed = 0.9;
 		maxHP = 3360;
 		HP = maxHP;
 		scale = 2;
 		width = 128;
 		height = 128;
-		if(charged != true) {
-			img = getImage("beanotcharged.png");
-		}
-		if(charged == true) {
-			img = getImage("beacharged.png");
-		}
-
+		img = getImage("bea.png");
 		// range = 7
 		init(p[0], p[1]);
 	}
 
 	public void shoot(ArrayList<Bullet> bullets) {
-		if(ammo>0) {
-		if (charged == true) {
-			bullets.add(new Bullet(team, x + 64, y + 60, 16, theta, 3080, 2, 0));
-			System.out.println("Bea CHARGE");
-		
-		} else {
-			bullets.add(new Bullet(team, x + 64, y + 60, 16, theta, 1120, 2, 0));
+		if (ammo > 0) {
+			if (charged == true) {
+				bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 3080, 2, 0));
+				System.out.println("Bea CHARGE");
+			} else {
+				bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 1120, 2, 0));
+			}
+			ammo--;
+			reload = reloadSpeed;
+			inCombat = true;
+			charged= !charged;
 		}
-		}
-		ammo--;
-		reload = reloadSpeed;
-		inCombat = true;
-		charged= !charged;
 	}
 	
 	public void update(int fps, ArrayList<Bullet> bullets){
+
 		if (reload>0){
-			reload-=1/fps;
-			if (reload==0){
+			System.out.println(reload+" sec left");
+			reload-=1/(double)fps;
+			if (reload<=0){
 				ammo++;
 				if (ammo != 3) reload=reloadSpeed;
 			}
 		}
 		if (charged == true) {
-			img = getImage("beacharged.png");
+			img = getImage("beaC.png");
 		} else {
-			img = getImage("beanotcharged.png");
+			img = getImage("bea.png");
 		}
 		move();
 	}
