@@ -1,9 +1,3 @@
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.net.URL;
 
 
 public class Bullet {
@@ -27,7 +21,7 @@ public class Bullet {
 		this.damage = damage;
 		this.size = size;
 		this.effect = effect;
-		System.out.println(theta);
+		//System.out.println(theta);
 	}
 	
 	
