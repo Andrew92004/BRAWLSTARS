@@ -7,7 +7,7 @@ import javax.swing.Timer;
 public class Driver extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
 
 	// size of jframe
-	int screen_width = 336 * 4;
+	int screen_width = 340 * 4;
 	int screen_height = 600 / 2 * 4;
 	int[][] Map = new int[25][21];
 	Grass[] bush = new Grass[80];
@@ -92,14 +92,18 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 		
 		// draw brawlers
-		safe0.paint(g);
 		safe1.paint(g);
-		shelly0.paint(g);
+		safe0.paint(g);
+
 		shelly1.paint(g);
-		colt0.paint(g);
+		shelly0.paint(g);
+
 		colt1.paint(g);
-		bea0.paint(g);
+		colt0.paint(g);
+
 		bea1.paint(g);
+		bea0.paint(g);
+
 
 
 		//draw bushes
@@ -489,28 +493,19 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 	@Override
+	public void mouseMoved(MouseEvent m) {
+		// TODO Auto-generated method stub
+		// bea.spin(bea.getAngle(m.getX()-2,m.getY()-20));
+		bea0.spin(bea0.getAngle(m.getX() - 2, m.getY() - 20 - camY));
+		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
+	}
+	@Override
 	public void keyPressed(KeyEvent e) {
-		/*
-		 * //bea if (e.getKeyCode()==65) {bea.controlMove(65, 0);} if
-		 * (e.getKeyCode()==68) {bea.controlMove(68, 0);} if (e.getKeyCode()==87)
-		 * {bea.controlMove(0, 87);} if (e.getKeyCode()==83) {bea.controlMove(0, 83);}
-		 * //colt if (e.getKeyCode()==65) {colt.controlMove(65, 0);} if
-		 * (e.getKeyCode()==68) {colt.controlMove(68, 0);} if (e.getKeyCode()==87)
-		 * {colt.controlMove(0, 87);} if (e.getKeyCode()==83) {colt.controlMove(0, 83);}
-		 */
 		keys[e.getKeyCode()] = true;
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		/*
-		 * // bea if (e.getKeyCode()==65) {bea.controlMove(-1, 0);} if
-		 * (e.getKeyCode()==68) {bea.controlMove(-1, 0);} if (e.getKeyCode()==87)
-		 * {bea.controlMove(0, -1);} if (e.getKeyCode()==83) {bea.controlMove(0, -1);}
-		 * //colt if (e.getKeyCode()==65) {colt.controlMove(-1, 0);} if
-		 * (e.getKeyCode()==68) {colt.controlMove(-1, 0);} if (e.getKeyCode()==87)
-		 * {colt.controlMove(0, -1);} if (e.getKeyCode()==83) {colt.controlMove(0, -1);}
-		 */
 		keys[e.getKeyCode()] = false;
 	}
 
@@ -550,12 +545,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 
-	@Override
-	public void mouseMoved(MouseEvent m) {
-		// TODO Auto-generated method stub
-		// bea.spin(bea.getAngle(m.getX()-2,m.getY()-20));
-		bea0.spin(bea0.getAngle(m.getX() - 2, m.getY() - 20 - camY));
-		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
-	}
+
 
 }
