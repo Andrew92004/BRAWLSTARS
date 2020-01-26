@@ -12,30 +12,30 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int[][] Map = new int[25][21];
 	Grass[] bush = new Grass[80];
 	Crate[] crates = new Crate[80];
-	//[0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
+	// [0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	Shelly shelly0 = new Shelly(0, new int[] { 200, 200 });
 	Shelly shelly1 = new Shelly(1, new int[] { 200, 600 });
 	Bea bea0 = new Bea(0, new int[] { 400, 200 });
 	Bea bea1 = new Bea(1, new int[] { 400, 600 });
 	Colt colt0 = new Colt(0, new int[] { 600, 200 });
-	Colt colt1 = new Colt(1, new int[] { 600, 600 });
+	Colt colt1 = new Colt(1, new int[] { 600, 800 });
 	Safe safe0 = new Safe(0, new int[] { 800, 200 });
-	Safe safe1 = new Safe(1,new int[] {800,600});
+	Safe safe1 = new Safe(1, new int[] { 800, 600 });
 	int fps = 60;
-	
+
 	int player = 0;
-	
+
 	boolean keys[] = new boolean[256];
-	
+
 	@Override
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		//background
+		// background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
-		
-		//draw brawlers
+
+		// draw brawlers
 		safe0.paint(g);
 		safe1.paint(g);
 		shelly0.paint(g);
@@ -44,7 +44,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		colt1.paint(g);
 		bea0.paint(g);
 		bea1.paint(g);
-		
+
 		for (int i = 0; i < bullets.size(); i++) {
 			// System.out.println("bullet " +i);
 			Bullet b = bullets.get(i);
@@ -67,7 +67,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 				crates[i].paint(g);
 			}
 		}
-		
+
 		if (safe1.getHP() <= 0) {
 			g.setColor(new Color(100, 231, 100));
 			g.fillRect(0, 0, screen_width, screen_height);
@@ -102,7 +102,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// bullet Movement
 		for (int i = 0; i < bullets.size(); i++) {
 			Bullet b = bullets.get(i);
-			if(b.bulletTimer ==0) {
+			if (b.bulletTimer == 0) {
 				bullets.remove(i);
 			}
 			b.move();
@@ -113,7 +113,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			tars[3] = colt1;
 			tars[4] = bea0;
 			tars[5] = bea1;
-			//brawler collision
+			// brawler collision
 			for (int j = 0; j < tars.length; j++) {
 				Brawler tar = tars[j];
 				if (b.team == tar.team) {
@@ -127,7 +127,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 					break;
 				}
 			}
-			//safe
+			// safe
 			if (b.team == 1) {
 				// safe hitbox is basically perfect at 64 64 64
 				if (b.collided(safe0.getX() + 64, safe0.getY() + 64, 64)) {
@@ -149,25 +149,26 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 				}
 			}
 			// crates
-			for(int k = 0; k < crates.length; k++) {
-				if (crates[k]==null) continue;
-				if (b.collided(crates[k].getX()+16, crates[k].getY()+16, 32)) {
+			for (int k = 0; k < crates.length; k++) {
+				if (crates[k] == null)
+					continue;
+				if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 32)) {
 					bullets.remove(i);
 					i--;
 					break;
 				}
 			}
 		}
-		
-		//brawler update
+
+		// brawler update
 		shelly0.update(fps, bullets);
 		shelly1.update(fps, bullets);
 		colt0.update(fps, bullets);
 		colt1.update(fps, bullets);
 		bea0.update(fps, bullets);
 		bea1.update(fps, bullets);
-		
-		//movement
+
+		// movement
 		if (keys[68]) {
 			bea0.controlMove(2, -1);
 		} else if (keys[65]) {
@@ -189,8 +190,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// bea.move();
-		//colt.shotPattern(bullets);
-		
+		// colt.shotPattern(bullets);
+
 		update();
 		repaint();
 	}
@@ -219,8 +220,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setVisible(true);
 
-		
-		
 		// images
 		// Map = 0 means no image
 		// Map = 1 means grass
@@ -455,11 +454,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+
 		// bea.shoot(bullets);
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			System.out.println("CLICK");
-		bea0.shoot(bullets);
+			bea0.shoot(bullets);
 		}
 
 	}
@@ -499,7 +498,5 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		bea0.spin(bea0.getAngle(m.getX() - 2, m.getY() - 20));
 		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
-	
-	
 
 }
