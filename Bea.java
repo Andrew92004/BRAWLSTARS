@@ -57,12 +57,28 @@ public class Bea extends Brawler {
 			HP = maxHP;
 			x = xi;
 			y = yi;
+			spin(0);
 			ammo = 3;
 			init(x,y);
 		}
 		move();
 	}
-	
+	//bot
+	public void runBot(ArrayList<Bullet> bullets, Brawler tar, Safe safe) {
+		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=400*400) {
+			spin(getAngle(tar.getX()+64,tar.getY()+64));
+			if (ammo==3) {
+			shoot(bullets);
+			return;
+			}
+		}
+		if (safe.getX()*safe.getX()+safe.getY()*safe.getY()<=100*100) {
+			shoot();
+			return;
+		}
+		controlMove(-1,2);
+		
+	}
 	// MOVEMENT
 	public void move() {
 		tx.translate(vy * Math.cos(Math.PI / 2 + theta) / scale,
