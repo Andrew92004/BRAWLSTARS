@@ -41,16 +41,24 @@ public class Bea extends Brawler {
 	public void update(int fps, ArrayList<Bullet> bullets){
 
 		if (reload>0){
+			System.out.println(reload+" sec left");
 			reload-=1/(double)fps;
 			if (reload<=0){
 				ammo++;
 				if (ammo != 3) reload=reloadSpeed;
 			}
 		}
-		if (charged) {
+		if (charged == true) {
 			img = getImage("beaC.png");
 		} else {
 			img = getImage("bea.png");
+		}
+		if (HP<=0){
+			HP = maxHP;
+			x = xi;
+			y = yi;
+			ammo = 3;
+			init(x,y);
 		}
 		move();
 	}
@@ -78,7 +86,6 @@ public class Bea extends Brawler {
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(img, tx, null);
-
 	}
 
 	protected void init(double a, double b) {
