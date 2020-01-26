@@ -73,7 +73,7 @@ public class Brawler {
 		if (x<0&&vx<0) {
 			vx = 0;
 		}
-		if (x>1200&&vx>0) {
+		if (x>1220&&vx>0) {
 			vx = 0;
 		}
 		if (y<-64&&vy<0) {
