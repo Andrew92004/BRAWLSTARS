@@ -21,6 +21,7 @@ public class Brawler {
 	protected boolean showImage;
 	protected int xi, yi;
 	protected double combatTimer;
+	protected double respawnTimer;
 	public Brawler(int t, int[] p){
 		team = t;
 		x = p[0];
