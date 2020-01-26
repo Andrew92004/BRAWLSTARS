@@ -47,6 +47,12 @@ public class Shelly extends Brawler {
 				if (ammo != 3) reload=reloadSpeed;
 			}
 		}
+		if (combatTimer>0){
+			combatTimer-=1/(double)fps;
+		}
+		if (combatTimer<=0){
+			heal();
+		}
 		if (HP<=0){
 			HP = maxHP;
 			x = xi;
@@ -59,6 +65,12 @@ public class Shelly extends Brawler {
 	}
 	
 	public void runBot(ArrayList<Bullet> bullets, Brawler tar, Safe safe) {
+		System.out.println(ammo);
+		if (safe.getX()*safe.getX()+safe.getY()*safe.getY()<=100*100) {
+			spin(getAngle(tar.getX()+64,tar.getY()+64));
+			shoot(bullets);
+			return;
+		}
 		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=200*200) {
 			spin(getAngle(tar.getX()+64,tar.getY()+64));
 			if (ammo==3) {
@@ -66,12 +78,9 @@ public class Shelly extends Brawler {
 			return;
 			}
 		}
-		if (safe.getX()*safe.getX()+safe.getY()*safe.getY()<=100*100) {
-			shoot(bullets);
-			return;
-		}
-		if (tar.getX()>x+128) controlMove(2,-1);
-		if (tar.getX()+128<x) controlMove(1,-1);
+		if (tar.getX()>x+64) controlMove(2,-1);
+		else if (tar.getX()+64<x) controlMove(1,-1);
+		else controlMove(0,-1);
 		
 		controlMove(-1,2);
 	}
