@@ -214,6 +214,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// brawler update
 		shelly0.constrainMove(crates);
 		shelly0.update(fps, bullets);
+		shelly0.runBot(bullets, shelly1, safe1);
 
 		shelly1.constrainMove(crates);
 		shelly1.update(fps, bullets);
@@ -221,15 +222,17 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		colt0.constrainMove(crates);
 		colt0.update(fps, bullets);
+		colt0.runBot(bullets, colt1, safe1);
 
 		colt1.constrainMove(crates);
 		colt1.update(fps, bullets);
+		colt1.runBot(bullets, bea0, safe0);
 
 		bea0.constrainMove(crates);
 		bea0.update(fps, bullets);
 		
 		//camY -= bea0.vy;
-		camY = 300-bea0.getY();
+		camY = 425-bea0.getY();
 
 		bea1.constrainMove(crates);
 		bea1.update(fps, bullets);
