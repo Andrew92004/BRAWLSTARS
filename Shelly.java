@@ -29,7 +29,7 @@ public class Shelly extends Brawler {
 	public void shoot(ArrayList<Bullet> bullets) {
 		if (ammo > 0) {
 			for (int i = 0; i < 5; i++) {
-				bullets.add(new Bullet(team, x + 48, y + 64, 10, theta - Math.PI / 8 + (i * Math.PI / 20), 420, 10, 0));
+				bullets.add(new Bullet(team, x + 64, y + 64, 10, theta - Math.PI / 8 + (i * Math.PI / 20), 420, 10, 0));
 			}
 			ammo--;
 			reload = reloadSpeed;
@@ -46,6 +46,7 @@ public class Shelly extends Brawler {
 					reload = reloadSpeed;
 			}
 		}
+		if (ammo>3) ammo = 3;
 		if (combatTimer > 0) {
 			combatTimer -= 1 / (double) fps;
 		}
