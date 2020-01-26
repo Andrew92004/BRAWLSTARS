@@ -76,6 +76,10 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
         g.fillRect(safe1.getX() + 5, safe1.getY() - 25, (int)(128 * safe1.HP/safe1.maxHP), 10);
         g.drawString("Shoot Me!", safe1.getX() + 40, safe1.getY() - 30);
         
+        //ammo bar for bea0
+        g.setColor(new Color(255, 215, 0));
+        g.fillRect(bea0.getX() + 30, bea0.getY() - 10, (int)(66 * bea0.ammo/3), 10);
+        
 		// draw brawlers
 		safe0.paint(g);
 		safe1.paint(g);
