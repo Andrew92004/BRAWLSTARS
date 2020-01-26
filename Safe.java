@@ -28,9 +28,9 @@ public class Safe extends Brawler {
 			// draw the affinetransform
 				public void paint(Graphics g) {
 					Graphics2D g2 = (Graphics2D) g;
-					if(showImage) {
+
 					g2.drawImage(img, tx, null);
-					}
+					
 				}
 
 
