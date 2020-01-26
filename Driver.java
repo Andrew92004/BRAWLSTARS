@@ -14,12 +14,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Crate[] crates = new Crate[80];
 	// [0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	Shelly shelly0 = new Shelly(0, new int[] { 630, 1125 });
-	Shelly shelly1 = new Shelly(1, new int[] { 630, 325 });
-	Bea bea0 = new Bea(0, new int[] { 825, 1125 });
-	Bea bea1 = new Bea(1, new int[] { 825, 325 });
-	Colt colt0 = new Colt(0, new int[] { 375, 1125 });
-	Colt colt1 = new Colt(1, new int[] { 375, 325 });
+	Shelly shelly0 = new Shelly(0, new int[] { 620, 1125 });
+	Shelly shelly1 = new Shelly(1, new int[] { 620, 325 });
+	Bea bea0 = new Bea(0, new int[] { 815, 1125 });
+	Bea bea1 = new Bea(1, new int[] { 815, 325 });
+	Colt colt0 = new Colt(0, new int[] { 365, 1125 });
+	Colt colt1 = new Colt(1, new int[] { 365, 325 });
 	Safe safe0 = new Safe(0, new int[] { 600, 1650 });
 	Safe safe1 = new Safe(1, new int[] { 600, -200 });
 	int fps = 60;
@@ -70,7 +70,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// healthbar safe0
 		g.setColor(new Color(0, 0, 255));
 		g.fillRect(safe0.getX() + 5, safe0.getY() - 25, (int) (128 * safe0.HP / safe0.maxHP), 10);
-		g.drawString("Don't Shoot Me!", safe0.getX() + 40, safe0.getY() - 30);
+		g.drawString("Protect Me!", safe0.getX() + 40, safe0.getY() - 30);
 		// healthbar safe1
 		g.setColor(new Color(255, 0, 0));
 		g.fillRect(safe1.getX() + 5, safe1.getY() - 25, (int) (128 * safe1.HP / safe1.maxHP), 10);
@@ -336,6 +336,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[16][10] = 1;
 		Map[16][11] = 1;
 		Map[16][12] = 1;
+		
+		Map[9][9] = 1;
+		Map[9][11] = 1;
+		Map[15][9] = 1;
+		Map[15][11] = 1;
 
 		// middle right hand side grass
 		Map[9][19] = 1;
@@ -402,8 +407,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[18][4] = 2;
 
 		// center crates
-		Map[9][9] = 2;
-		Map[9][11] = 2;
+
 		Map[10][8] = 2;
 		Map[10][9] = 2;
 		Map[10][10] = 2;
@@ -415,8 +419,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[14][10] = 2;
 		Map[14][11] = 2;
 		Map[14][12] = 2;
-		Map[15][9] = 2;
-		Map[15][11] = 2;
+
 
 		// ride hand side crates
 		Map[6][15] = 2;
