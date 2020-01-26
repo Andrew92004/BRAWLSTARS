@@ -22,6 +22,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Colt colt1 = new Colt(1, new int[] { 600, 600 });
 	Safe safe0 = new Safe(0, new int[] { 800, 200 });
 	Safe safe1 = new Safe(1,new int[] {800,600});
+	int fps = 60;
 	
 	int player = 0;
 	
@@ -33,7 +34,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		//background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
-
+		
 		//draw brawlers
 		safe0.paint(g);
 		safe1.paint(g);
@@ -50,7 +51,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			if (b.team == 0) {
 				g.setColor(new Color(0, 0, 255));
 			} else {
-
+				g.setColor(new Color(255, 0, 0));
 			}
 			g.fillOval(b.getX(), b.getY(), 10, 10);
 		}
@@ -94,92 +95,98 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			g.drawString("U LOST TO SCUFFED BOTS", 325, 800);
 			g.drawString("BRUH U TRASH", 450, 875);
 		}
-		
 
 	}
 
 	public void update() {
 		// bullet Movement
-				for (int i = 0; i < bullets.size(); i++) {
-					Bullet b = bullets.get(i);
-					b.move();
-					Brawler[] tars = new Brawler[6];
-					tars[0] = shelly0;
-					tars[1] = shelly1;
-					tars[2] = colt0;
-					tars[3] = colt1;
-					tars[4] = bea0;
-					tars[5] = bea1;
-					//brawler collision
-					for (int j = 0; j < tars.length; j++) {
-						Brawler tar = tars[j];
-						if (b.team == tar.team) {
-							continue;
-						}
-						if (b.collided(tar.getX() + 59, tar.getY() + 62, 46)) {
-							tar.takeDamage(b.getDamage(), b.getEffect());
-							b.onHit(tar);
-							bullets.remove(i);
-							i--;
-							break;
-						}
-					}
-					//safe
-					if (b.team == 1) {
-						// safe hitbox is basically perfect at 64 64 64
-						if (b.collided(safe0.getX() + 64, safe0.getY() + 64, 64)) {
-							safe0.takeDamage(b.getDamage(), b.getEffect());
-							b.onHit(safe0);
-							bullets.remove(i);
-							i--;
-							continue;
-						}
-					}
-					if (b.team == 0) {
-						// safe hitbox is basically perfect at 64 64 64
-						if (b.collided(safe1.getX() + 64, safe1.getY() + 64, 64)) {
-							safe1.takeDamage(b.getDamage(), b.getEffect());
-							b.onHit(safe1);
-							bullets.remove(i);
-							i--;
-							continue;
-						}
-					}
-					// crates
-					for(int k = 0; k < crates.length; k++) {
-						if (crates[k]==null) continue;
-						if (b.collided(crates[k].getX()+16, crates[k].getY()+16, 32)) {
-							bullets.remove(i);
-							i--;
-							break;
-						}
-					}
+		for (int i = 0; i < bullets.size(); i++) {
+			Bullet b = bullets.get(i);
+			b.move();
+			Brawler[] tars = new Brawler[6];
+			tars[0] = shelly0;
+			tars[1] = shelly1;
+			tars[2] = colt0;
+			tars[3] = colt1;
+			tars[4] = bea0;
+			tars[5] = bea1;
+			//brawler collision
+			for (int j = 0; j < tars.length; j++) {
+				Brawler tar = tars[j];
+				if (b.team == tar.team) {
+					System.out.println("NO");
+					continue;
 				}
-				// safe1.update(screen_height,bullets);
-			
+				if (b.collided(tar.getX() + 59, tar.getY() + 62, 46)) {
+					tar.takeDamage(b.getDamage(), b.getEffect());
+					b.onHit(tar);
+					bullets.remove(i);
+					i--;
+					break;
+				}
+			}
+			//safe
+			if (b.team == 1) {
+				// safe hitbox is basically perfect at 64 64 64
+				if (b.collided(safe0.getX() + 64, safe0.getY() + 64, 64)) {
+					safe0.takeDamage(b.getDamage(), b.getEffect());
+					b.onHit(safe0);
+					bullets.remove(i);
+					i--;
+					continue;
+				}
+			}
+			if (b.team == 0) {
+				// safe hitbox is basically perfect at 64 64 64
+				if (b.collided(safe1.getX() + 64, safe1.getY() + 64, 64)) {
+					safe1.takeDamage(b.getDamage(), b.getEffect());
+					b.onHit(safe1);
+					bullets.remove(i);
+					i--;
+					continue;
+				}
+			}
+			// crates
+			for(int k = 0; k < crates.length; k++) {
+				if (crates[k]==null) continue;
+				if (b.collided(crates[k].getX()+16, crates[k].getY()+16, 32)) {
+					bullets.remove(i);
+					i--;
+					break;
+				}
+			}
+		}
+		
+		//brawler update
+		shelly0.update(fps, bullets);
+		shelly1.update(fps, bullets);
+		colt0.update(fps, bullets);
+		colt1.update(fps, bullets);
+		bea0.update(fps, bullets);
+		bea1.update(fps, bullets);
+		
+		//movement
+		if (keys[68]) {
+			bea0.controlMove(2, -1);
+		} else if (keys[65]) {
+			bea0.controlMove(1, -1);
+		} else {
+			bea0.controlMove(0, -1);
+		}
 
-				if (keys[68]) {
-					bea0.controlMove(2, -1);
-				} else if (keys[65]) {
-					bea0.controlMove(1, -1);
-				} else {
-					bea0.controlMove(0, -1);
-				}
-
-				if (keys[87]) {
-					bea0.controlMove(-1, 1);
-				} else if (keys[83]) {
-					bea0.controlMove(-1, 2);
-				} else {
-					bea0.controlMove(-1, 0);
-				}
+		if (keys[87]) {
+			bea0.controlMove(-1, 1);
+		} else if (keys[83]) {
+			bea0.controlMove(-1, 2);
+		} else {
+			bea0.controlMove(-1, 0);
+		}
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// bea.move();
-		bea0.update(6, bullets);
 		//colt.shotPattern(bullets);
 		
 		update();
