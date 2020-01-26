@@ -13,15 +13,16 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Grass[] bush = new Grass[80];
 	Crate[] crates = new Crate[80];
 	Brawler[] brawlers = new Brawler[8];
-	//[0] and [1] are safes, [2] is player, [3] and [4] are allies, [5] [6] [7] are enemies
+	// [0] and [1] are safes, [2] is player, [3] and [4] are allies, [5] [6] [7] are
+	// enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	Bea bea = new Bea(0, new int[] { 200, 200 });
 	Colt dummy = new Colt(1, new int[] { 300, 600 });
 	Colt colt = new Colt(0, new int[] { 200, 300 });
-	Safe safe = new Safe(1,new int[] {600,300});
-	
+	Safe safe = new Safe(1, new int[] { 600, 300 });
+	Safe allySafe = new Safe(0, new int[] { 600, 500 });
 	boolean keys[] = new boolean[256];
-	
+
 	@Override
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -33,6 +34,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		colt.paint(g);
 		dummy.paint(g);
 		safe.paint(g);
+		allySafe.paint(g);
 		// g.drawOval(bea.getX(), bea.getY(), 10, 10);
 
 		for (int i = 0; i < bullets.size(); i++) {
@@ -58,7 +60,35 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			}
 		}
 
-	//	g.drawRect(dummy.getX(), dummy.getY(), 128, 128);
+		if (safe.getHP() <= 0) {
+			g.setColor(new Color(100, 231, 100));
+			g.fillRect(0, 0, screen_width, screen_height);
+			g.setColor(new Color(0, 0, 0));
+			Font myFont = new Font("Serif", Font.BOLD, 100);
+			g.setFont(myFont);
+			g.drawString("YOUwU WIN!!", 325, 400);
+			g.drawString("GG UwU beat bots", 275, 600);
+			Font notMyFont = new Font("Serif", Font.BOLD, 50);
+			g.setFont(notMyFont);
+			g.drawString("*insert happy noises here*", 380, 800);
+			g.drawString(".-.", 650, 875);
+		}
+
+		if (allySafe.getHP() <= 0) {
+			g.setColor(new Color(100, 231, 100));
+			g.fillRect(0, 0, screen_width, screen_height);
+			g.setColor(new Color(0, 0, 0));
+			Font myFont = new Font("Serif", Font.BOLD, 80);
+			g.setFont(myFont);
+			g.drawString("YOU ARE COMPLETE TRASH", 100, 400);
+			g.drawString("GG MEANS GIT GUD", 250, 600);
+			Font notMyFont = new Font("Serif", Font.BOLD, 50);
+			g.setFont(notMyFont);
+			g.drawString("U LOST TO SCUFFED BOTS", 325, 800);
+			g.drawString("BRUH U TRASH", 450, 875);
+		}
+
+		// g.drawRect(dummy.getX(), dummy.getY(), 128, 128);
 
 	}
 
@@ -70,64 +100,76 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			for (int j = 0; j < brawlers.length; j++) {
 				Brawler tar = dummy;
 				Brawler tar2 = safe;
+				Brawler tar3 = allySafe;
 				if (b.team == tar.team) {
 					System.out.println("NO");
 					continue;
 				}
-				//dum colt
-				//colt hitbox is basically perfect at 59 62 46
-				if (b.collided(tar.getX() + 59, tar.getY() +62, 46)) {
+				// dum colt
+				// colt hitbox is basically perfect at 59 62 46
+				if (b.collided(tar.getX() + 59, tar.getY() + 62, 46)) {
 					tar.takeDamage(b.getDamage(), b.getEffect());
 					b.onHit(tar);
 					bullets.remove(i);
 					i--;
 					break;
 				}
-				//safe
-				if(safe.getHP()>= 0) {
-				if(b.team == tar2.team) {
-					System.out.println("hes on ur team nerd");
-					continue;
+				// safe
+				if (safe.getHP() >= 0) {
+
+					// safe hitbox is basically perfect at 64 64 64
+					if (b.collided(tar2.getX() + 64, tar2.getY() + 64, 64)) {
+						tar2.takeDamage(b.getDamage(), b.getEffect());
+						b.onHit(tar2);
+						bullets.remove(i);
+						i--;
+						break;
+					}
+					
 				}
-				//safe hitbox is basically perfect at 64 64 64
-				if (b.collided(tar2.getX() + 64, tar2.getY() + 64, 64)) {
-					tar2.takeDamage(b.getDamage(), b.getEffect());
-					b.onHit(tar2);
-					bullets.remove(i);
-					i--;
-					break;
+				if (allySafe.getHP() >= 0) {
+					if (b.team == tar3.team) {
+						continue;
+					}
+					// safe hitbox is basically perfect at 64 64 64
+					if (b.collided(tar3.getX() + 64, tar3.getY() + 64, 64)) {
+						tar3.takeDamage(b.getDamage(), b.getEffect());
+						b.onHit(tar3);
+						bullets.remove(i);
+						i--;
+						break;
+					}
+					
 				}
-				}
-				//crates
-			//	for(int k=0; k<crates.length; k++) {
-			//		if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 16)) {
-			//			i--;
-			//			break;
-				//	}
-				//}
+				// crates
+				// for(int k=0; k<crates.length; k++) {
+				// if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 16)) {
+				// i--;
+				// break;
+				// }
+				// }
 			}
 		}
-		//safe.update(screen_height,bullets);
+		// safe.update(screen_height,bullets);
 		dummy.update(screen_height, bullets);
 		// dummy.move();
 		dummy.controlMove(39, 0);
-	
 
 		if (keys[68]) {
-			brawlers[2].controlMove(2, -1);
+			colt.controlMove(2, -1);
+		} else if (keys[65]) {
+			colt.controlMove(1, -1);
+		} else {
+			colt.controlMove(0, -1);
 		}
-		else if (keys[65]) {
-			brawlers[2].controlMove(1, -1);
-		}
-		else {brawlers[2].controlMove(0, -1);}
-		
+
 		if (keys[87]) {
-			brawlers[2].controlMove(-1, 1);
+			colt.controlMove(-1, 1);
+		} else if (keys[83]) {
+			colt.controlMove(-1, 2);
+		} else {
+			colt.controlMove(-1, 0);
 		}
-		else if (keys[83]) {
-			brawlers[2].controlMove(-1, 2);
-		}
-		else {brawlers[2].controlMove(-1, 0);}
 
 	}
 
@@ -164,15 +206,14 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setVisible(true);
 
-		
-		//BRAWLER INIT
-		brawlers[0] = new Safe(0,new int[] {600,300});
-		brawlers[1] = new Safe(1,new int[] {600,300});
-		
-		brawlers[5] = new Shelly(1,new int[] {100,100});
-		brawlers[6] = new Colt(1,new int[] {100,100});
-		brawlers[7] = new Bea(1,new int[] {100,100});
-		
+		// BRAWLER INIT
+		brawlers[0] = new Safe(0, new int[] { 600, 300 });
+		brawlers[1] = new Safe(1, new int[] { 600, 300 });
+
+		brawlers[5] = new Shelly(1, new int[] { 100, 100 });
+		brawlers[6] = new Colt(1, new int[] { 100, 100 });
+		brawlers[7] = new Bea(1, new int[] { 100, 100 });
+
 		// images
 		// Map = 0 means no image
 		// Map = 1 means grass
@@ -407,11 +448,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+
 		// bea.shoot(bullets);
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			System.out.println("CLICK");
-		colt.shoot(bullets);
+			colt.shoot(bullets);
 		}
 
 	}
@@ -451,7 +492,5 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		colt.spin(colt.getAngle(m.getX() - 2, m.getY() - 20));
 		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
-	
-	
 
 }
