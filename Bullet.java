@@ -9,6 +9,7 @@ public class Bullet {
 	public int size;
 	private int effect;
 	public int team;
+	public int bulletTimer;
 	public Bullet(int team, int startX, int startY, int v, double angle, int damage, int size, int effect){
 		this.team = team;
 		x = startX;
@@ -21,6 +22,7 @@ public class Bullet {
 		this.damage = damage;
 		this.size = size;
 		this.effect = effect;
+		bulletTimer = 40;
 		//System.out.println(theta);
 	}
 	
@@ -74,6 +76,7 @@ public class Bullet {
 	}
 
 	public void move(){
+		bulletTimer--;
 		vx= -(int)(vel*Math.sin(theta));
 		vy = -(int)(vel*Math.cos(theta));
 		x+=vx;
