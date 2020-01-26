@@ -5,57 +5,33 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
-import java.util.ArrayList;
 
 
 
-public class Colt extends Brawler {
+public class Safe extends Brawler {
 	double scale;
-	
-	public Colt(int t, int[] p) {
+	public Safe(int t, int[] p) {
 		super(t, p);
-		maxCharge = 4620;
-		reloadSpeed = 1.5;
-		maxHP = 5040;
+
+		maxHP = 20000;
 		HP = maxHP;
-		scale = 2;
-		img = getImage("colt.png");
+		scale = 6;
+		img = getImage("safe.png");
 		width = 128;
 		height = 128;
-		//range = 7
 		init(p[0],p[1]);
 	}
 	
-	
-	public void shoot(ArrayList<Bullet> bullets){
-		for (int i = 0; i < 5; i++){
-			bullets.add(new Bullet("beabulletC.png",x,y,10,theta));
-		}
-		ammo--;
-		reload = reloadSpeed;
-		inCombat = true;
-	}
-	//MOVEMENT
-			public void move(){
-				tx.translate(vy*Math.cos(Math.PI/2+theta)/scale,vy*Math.sin(Math.PI/2+theta)/scale);
-				tx.translate(vx*Math.cos(theta)/scale,vx*Math.sin(theta)/scale);
-				x+=vx;
-				y+=vy;
-			}
-			
-			public void spin(double a){
-				//By @ArkyLi
-				double oldangle = theta;
-				theta=a;
-				tx.rotate(oldangle-theta, width/2/scale, height/2/scale);
-			}
 			//DRAWING
 			private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 
 			// draw the affinetransform
 				public void paint(Graphics g) {
 					Graphics2D g2 = (Graphics2D) g;
+					if(showImage) {
 					g2.drawImage(img, tx, null);
+					}
+			
 				}
 
 				protected void init(double a, double b) {
