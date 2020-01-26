@@ -32,7 +32,7 @@ public class Bea extends Brawler {
 			}
 			ammo--;
 			reload = reloadSpeed;
-			combatTimer = 5;
+			combatTimer = 3;
 			charged= !charged;
 		}
 	}
