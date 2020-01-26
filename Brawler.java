@@ -2,25 +2,24 @@ import java.awt.Image;
 
 
 public class Brawler {
-	public int team;
-	public double reloadSpeed;
-	public double reload;
-	public int maxCharge;
-	public int supCharge;
-	public int ammo;
-	public int maxHP;
-	public int HP;
-	public boolean inCombat;
-	public Image img;
-	public int x, y;
-	public double vx, vy;
-	public double vel;
-	public double theta;
-	public int width, height;
-	public double scale;
-	
-	public int xi, yi;
-	
+	protected int team;
+	protected double reloadSpeed;
+	protected double reload;
+	protected int maxCharge;
+	protected int supCharge;
+	protected int ammo;
+	protected int maxHP;
+	protected int HP;
+	protected boolean inCombat;
+	protected Image img;
+	protected int x, y;
+	protected double vx, vy;
+	protected double vel;
+	protected double theta;
+	protected int width, height;
+	protected double scale;
+	protected boolean showImage;
+	protected int xi, yi;
 	public Brawler(int t, int[] p){
 		team = t;
 		x = p[0];
@@ -30,6 +29,7 @@ public class Brawler {
 		ammo = 3;
 		supCharge = 0;
 		vel = 3;
+		showImage = true;
 	}
 	
 	public void heal(){
@@ -39,7 +39,14 @@ public class Brawler {
 	public void takeDamage(int damage, int effect){
 		inCombat = true;
 		HP -= damage;
+		System.out.println("HP: " + HP);
+		if(HP<= 0) {
+			showImage = false;
+		}
 	}
+
+
+
 	
 
 	
