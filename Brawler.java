@@ -34,7 +34,8 @@ public class Brawler {
 	}
 	
 	public void heal(){
-		HP+=maxHP/5;
+		HP+=maxHP/25;
+		if (HP>maxHP) HP = maxHP;
 	}
 	
 	public void takeDamage(int damage, int effect){
@@ -51,16 +52,16 @@ public class Brawler {
 		for (int i = 0; i < crates.length; i++) {
 			if (crates[i]==null) continue;
 			Crate c = crates[i];
-			if (x+120>c.getX()+5&&x+5<c.getX()+64) {
-				if (y + 120 >= c.getY()&&y <= c.getY()+32&&vy > 0) {
+			if (x+128>c.getX()+5&&x+5<c.getX()+64) {
+				if (y + 128 >= c.getY()&&y <= c.getY()+32&&vy > 0) {
 					vy = 0;
 				}
 				if (y + 64 >= c.getY()+32&&y <= c.getY()+64&&vy < 0) {
 					vy = 0;
 				}
 			}
-			if (y+120>c.getY()+5&&y+5<c.getY()+64) {
-				if (x + 120 >= c.getX()&&x <= c.getX()+32&&vx > 0) {
+			if (y+128>c.getY()+5&&y+5<c.getY()+64) {
+				if (x + 128 >= c.getX()&&x <= c.getX()+32&&vx > 0) {
 					vx = 0;
 				}
 				if (x + 64 >= c.getX()+32&&x <= c.getX()+64&&vx < 0) {
@@ -72,7 +73,7 @@ public class Brawler {
 		if (x<0&&vx<0) {
 			vx = 0;
 		}
-		if (x>1220&&vx>0) {
+		if (x>1200&&vx>0) {
 			vx = 0;
 		}
 		if (y<-64&&vy<0) {
