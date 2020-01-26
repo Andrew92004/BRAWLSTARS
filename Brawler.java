@@ -1,27 +1,23 @@
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.net.URL;
 
 
 public class Brawler {
-	protected int team;
-	protected double reloadSpeed;
-	protected double reload;
-	protected int maxCharge;
-	protected int supCharge;
-	protected int ammo;
-	protected int maxHP;
-	protected int HP;
-	protected boolean inCombat;
-	protected Image img;
-	
-	protected int x, y, vx, vy,vel;
-	protected double theta;
-	protected int width, height;
-	protected double scale;
+	public int team;
+	public double reloadSpeed;
+	public double reload;
+	public int maxCharge;
+	public int supCharge;
+	public int ammo;
+	public int maxHP;
+	public int HP;
+	public boolean inCombat;
+	public Image img;
+	public int x, y;
+	public double vx, vy;
+	public double vel;
+	public double theta;
+	public int width, height;
+	public double scale;
 	
 	public int xi, yi;
 	
@@ -50,22 +46,24 @@ public class Brawler {
 	public void shoot(){};
 	
 	public void controlMove(int rl, int ud){
-		if (rl==37){
+		if (rl==65){
 			vx = -vel;
 		}
-		else if (rl==39){
+		else if (rl==68){
 			vx = vel;
 		}
 		else if (rl==-1) vx = 0;
-		
-		if (ud==38){
+
+		if (ud==87){
 			vy = -vel;
 		}
-		else if (ud==40){
+		else if (ud==83){
 			vy = vel;
 		}
 		else if (ud==-1) vy = 0;
+
 	}
+	
 	
 	public double getAngle(int mx, int my){
 		return Math.PI/2-Math.atan2(y-my+height/2, x-mx+width/2);
