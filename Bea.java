@@ -23,17 +23,26 @@ public class Bea extends Brawler {
 		scale = 2;
 		width = 128;
 		height = 128;
-		img = getImage("bea.png");
+		if(charged != true) {
+			img = getImage("beanotcharged.png");
+		}
+		if(charged == true) {
+			img = getImage("beacharged.png");
+		}
+
 		// range = 7
 		init(p[0], p[1]);
 	}
 
 	public void shoot(ArrayList<Bullet> bullets) {
+		if(ammo>0) {
 		if (charged == true) {
-			bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 3080, 2, 0));
+			bullets.add(new Bullet(team, x + 64, y + 60, 16, theta, 3080, 2, 0));
 			System.out.println("Bea CHARGE");
+		
 		} else {
-			bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 1120, 2, 0));
+			bullets.add(new Bullet(team, x + 64, y + 60, 16, theta, 1120, 2, 0));
+		}
 		}
 		ammo--;
 		reload = reloadSpeed;
@@ -50,9 +59,9 @@ public class Bea extends Brawler {
 			}
 		}
 		if (charged == true) {
-			img = getImage("beaC.png");
+			img = getImage("beacharged.png");
 		} else {
-			img = getImage("bea.png");
+			img = getImage("beanotcharged.png");
 		}
 		move();
 	}
