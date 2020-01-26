@@ -14,14 +14,14 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Crate[] crates = new Crate[80];
 	//[0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	Shelly shelly0 = new Shelly(0, new int[] { 200, 300 });
-	Shelly shelly1 = new Shelly(1, new int[] { 300, 600 });
-	Bea bea0 = new Bea(0, new int[] { 200, 200 });
-	Bea bea1 = new Bea(1, new int[] { 300, 600 });
-	Colt colt0 = new Colt(0, new int[] { 200, 300 });
-	Colt colt1 = new Colt(1, new int[] { 300, 600 });
-	Safe safe0 = new Safe(0, new int[] { 400, 500 });
-	Safe safe1 = new Safe(1,new int[] {700,500});
+	Shelly shelly0 = new Shelly(0, new int[] { 200, 200 });
+	Shelly shelly1 = new Shelly(1, new int[] { 200, 600 });
+	Bea bea0 = new Bea(0, new int[] { 400, 200 });
+	Bea bea1 = new Bea(1, new int[] { 400, 600 });
+	Colt colt0 = new Colt(0, new int[] { 600, 200 });
+	Colt colt1 = new Colt(1, new int[] { 600, 600 });
+	Safe safe0 = new Safe(0, new int[] { 800, 200 });
+	Safe safe1 = new Safe(1,new int[] {800,600});
 	
 	int player = 0;
 	
@@ -109,7 +109,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 					tars[2] = colt0;
 					tars[3] = colt1;
 					tars[4] = bea0;
-					tars[5] = bea0;
+					tars[5] = bea1;
 					//brawler collision
 					for (int j = 0; j < tars.length; j++) {
 						Brawler tar = tars[j];
@@ -133,7 +133,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 							b.onHit(safe0);
 							bullets.remove(i);
 							i--;
-							break;
+							continue;
 						}
 					}
 					if (safe1.getHP() >= 0) {
@@ -143,16 +143,16 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 							b.onHit(safe1);
 							bullets.remove(i);
 							i--;
-							break;
+							continue;
 						}
 					}
-						// crates
-						// for(int k=0; k<crates.length; k++) {
-						// if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 16)) {
-						// i--;
-						// break;
-						// }
-						// }
+					// crates
+					for(int k = 0; k < crates.length; k++) {
+						if (b.collided(23, 16, 16)) {
+						i--;
+						break;
+						}
+					}
 				}
 				// safe1.update(screen_height,bullets);
 			
