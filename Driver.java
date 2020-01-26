@@ -44,30 +44,38 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 
 		// healthbar bea0
-		g.setColor(new Color(0, 0, 255));
-		g.fillRect(bea0.getX() + 30, bea0.getY() - 25, 66, 10);
-		g.drawString("You", bea0.getX() + 30, bea0.getY() - 30);
-		// healthbar bea1
-		g.fillRect(bea1.getX() + 30, bea1.getY() - 25, 66, 10);
-		g.drawString("Bot5", bea1.getX() + 30, bea1.getY() - 30);
-		// healthbar colt0
-		g.fillRect(colt0.getX() + 30, colt0.getY() - 25, 66, 10);
-		g.drawString("Bot1", colt0.getX() + 30, colt0.getY() - 30);
-		// healthbar colt1
-		g.fillRect(colt1.getX() + 30, colt1.getY() - 25, 66, 10);
-		g.drawString("Bot3", colt1.getX() + 30, colt1.getY() - 30);
-		// healthbar shelly0
-		g.fillRect(shelly0.getX() + 8, shelly0.getY() - 25, 66, 10);
-		g.drawString("Bot2", shelly0.getX() + 8, shelly0.getY() - 30);
-		// healthbar shelly1
-		g.fillRect(shelly1.getX() + 8, shelly1.getY() - 25, 66, 10);
-		g.drawString("Bot4", shelly1.getX() + 8, shelly1.getY() - 30);
-		// healthbar safe0
-		g.fillRect(safe0.getX() + 5, safe0.getY() - 25, 128, 10);
-		g.drawString("Shoot Me!", safe0.getX() + 40, safe0.getY() - 30);
-		// healthbar safe1
-		g.fillRect(safe1.getX() + 5, safe1.getY() - 25, 128, 10);
-		g.drawString("Shoot Me!", safe1.getX() + 40, safe1.getY() - 30);
+        g.setColor(new Color(0, 0, 255));
+        g.fillRect(bea0.getX() + 30, bea0.getY() - 25, (int)(66 * bea0.HP/bea0.maxHP), 10);
+        g.drawString("You", bea0.getX() + 30, bea0.getY() - 30);
+        // healthbar bea1
+        g.setColor(new Color(255, 0, 0));
+        g.fillRect(bea1.getX() + 30, bea1.getY() - 25, (int)(66 * bea1.HP/bea1.maxHP), 10);
+        g.drawString("Bot5", bea1.getX() + 30, bea1.getY() - 30);
+        // healthbar colt0
+        g.setColor(new Color(0, 0, 255));
+        g.fillRect(colt0.getX() + 30, colt0.getY() - 25, (int)(66 * colt0.HP/colt0.maxHP), 10);
+        g.drawString("Bot1", colt0.getX() + 30, colt0.getY() - 30);
+        // healthbar colt1
+        g.setColor(new Color(255, 0, 0));
+        g.fillRect(colt1.getX() + 30, colt1.getY() - 25, (int)(66 * colt1.HP/colt1.maxHP), 10);
+        g.drawString("Bot3", colt1.getX() + 30, colt1.getY() - 30);
+        // healthbar shelly0
+        g.setColor(new Color(0, 0, 255));
+        g.fillRect(shelly0.getX() + 8, shelly0.getY() - 25, (int)(66 * shelly0.HP/shelly0.maxHP), 10);
+        g.drawString("Bot2", shelly0.getX() + 8, shelly0.getY() - 30);
+        // healthbar shelly1
+        g.setColor(new Color(255, 0, 0));
+        g.fillRect(shelly1.getX() + 8, shelly1.getY() - 25, (int)(66 * shelly1.HP/shelly1.maxHP), 10);
+        g.drawString("Bot4", shelly1.getX() + 8, shelly1.getY() - 30);
+        // healthbar safe0
+        g.setColor(new Color(0, 0, 255));
+        g.fillRect(safe0.getX() + 5, safe0.getY() - 25, (int)(128 * safe0.HP/safe0.maxHP), 10);
+        g.drawString("Don't Shoot Me!", safe0.getX() + 40, safe0.getY() - 30);
+        // healthbar safe1
+        g.setColor(new Color(255, 0, 0));
+        g.fillRect(safe1.getX() + 5, safe1.getY() - 25, (int)(128 * safe1.HP/safe1.maxHP), 10);
+        g.drawString("Shoot Me!", safe1.getX() + 40, safe1.getY() - 30);
+        
 		// draw brawlers
 		safe0.paint(g);
 		safe1.paint(g);
@@ -208,6 +216,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		bea0.constrainMove(crates);
 		bea0.update(fps, bullets);
+		camY-=bea0.vy;
 
 		bea1.constrainMove(crates);
 		bea1.update(fps, bullets);
@@ -224,10 +233,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 			if (keys[87]) {
 				bea0.controlMove(-1, 1);
-				camY += 3;
 			} else if (keys[83]) {
 				bea0.controlMove(-1, 2);
-				camY -= 3;
 			} else {
 				bea0.controlMove(-1, 0);
 			}
