@@ -51,9 +51,26 @@ public class Shelly extends Brawler {
 			x = xi;
 			y = yi;
 			ammo = 3;
+			spin(0);
 			init(x,y);
 		}
 		move();
+	}
+	
+	public void runBot(ArrayList<Bullet> bullets, Brawler tar, Safe safe) {
+		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=200*200) {
+			spin(getAngle(tar.getX()+64,tar.getY()+64));
+			if (ammo==3) {
+			shoot(bullets);
+			return;
+			}
+		}
+		if (safe.getX()*safe.getX()+safe.getY()*safe.getY()<=100*100) {
+			shoot();
+			return;
+		}
+		controlMove(-1,2);
+		
 	}
 	//MOVEMENT
 			public void move(){
