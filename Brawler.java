@@ -53,22 +53,16 @@ public class Brawler {
 	public void shoot(){};
 	
 	public void controlMove(int rl, int ud){
-		if (rl==65){
-			vx = -vel;
+		if (rl != -1) {
+			if (rl == 2) vx = vel;
+			if (rl == 1) vx = -vel;
+			if (rl == 0) vx = 0;
 		}
-		else if (rl==68){
-			vx = vel;
+		if (ud != -1) {
+			if (ud == 2) vy = vel;
+			if (ud == 1) vy = -vel;
+			if (ud == 0) vy = 0;
 		}
-		else if (rl==-1) vx = 0;
-
-		if (ud==87){
-			vy = -vel;
-		}
-		else if (ud==83){
-			vy = vel;
-		}
-		else if (ud==-1) vy = 0;
-
 	}
 	
 	
