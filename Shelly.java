@@ -33,7 +33,7 @@ public class Shelly extends Brawler {
 			}
 			ammo--;
 			reload = reloadSpeed;
-			combatTimer = 5;
+			combatTimer = 3;
 		}
 	}
 
@@ -52,20 +52,13 @@ public class Shelly extends Brawler {
 		if (combatTimer <= 0) {
 			heal();
 		}
-		if (HP <= 0) {
-			respawnTimer = 5;
+		if (HP<=0){
 			HP = maxHP;
-			for (int i = 0; i < 5; i++) {
-				respawnTimer -= 1 / (double) fps;
-			}
-			if (respawnTimer == 0) {
-				x = xi;
-				y = yi;
-				ammo = 3;
-				spin(0);
-				init(x, y);
-			}
-
+			x = xi;
+			y = yi;
+			ammo = 3;
+			spin(0);
+			init(x,y);
 		}
 		move();
 	}
@@ -75,11 +68,10 @@ public class Shelly extends Brawler {
 		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
 			tar = safe;
 		}
-		if ((x - tar.getX()) * (x - tar.getX()) + (y - tar.getY()) * (y - tar.getY()) <= 200 * 200) {
-			spin(getAngle(tar.getX() + 64, tar.getY() + 64) - Math.PI / 4);
+		if ((x - tar.getX()) * (x - tar.getX()) + (y - tar.getY()) * (y - tar.getY()) <= 300 * 300) {
+			spin(getAngle(tar.getX() + 64, tar.getY() + 128));
 			if (ammo == 3) {
 				shoot(bullets);
-				return;
 			}
 		}
 		if (tar.getX() > x + 64)
