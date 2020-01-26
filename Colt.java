@@ -31,7 +31,7 @@ public class Colt extends Brawler {
 		if (ammo>0) {
 			ammo--;
 			reload = reloadSpeed;
-			combatTimer = 5;
+			combatTimer = 3;
 			shotTimer = 18;
 		}
 	}
@@ -65,7 +65,7 @@ public class Colt extends Brawler {
 		if (shotTimer<=0) return;
 		if (shotTimer%3==0){
 			for (int i = 0; i < 1; i++){
-				bullets.add(new Bullet(team,x+64,y+60,15,theta,420,2,0));
+				bullets.add(new Bullet(team,x+64,y+60,15,theta,500,2,0));
 			}
 		}
 		shotTimer --;
@@ -74,8 +74,8 @@ public class Colt extends Brawler {
 	//bot
 	public void runBot(ArrayList<Bullet> bullets, Brawler brl, Safe safe) {
 		Brawler tar = brl;
-		if ((x-safe.getX())*(x-safe.getX())+(y-safe.getY())*(y-safe.getY())<=300*300) {
-			tar = safe;
+		if ((x-safe.getX())*(x-safe.getX())+(y-safe.getY())*(y-safe.getY())<=500*500) {
+			//tar = safe;
 		}
 		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=300*300) {
 			spin(getAngle(tar.getX()+64,tar.getY()+64));
