@@ -102,6 +102,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// bullet Movement
 		for (int i = 0; i < bullets.size(); i++) {
 			Bullet b = bullets.get(i);
+			if(b.bulletTimer ==0) {
+				bullets.remove(i);
+			}
 			b.move();
 			Brawler[] tars = new Brawler[6];
 			tars[0] = shelly0;
@@ -114,7 +117,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			for (int j = 0; j < tars.length; j++) {
 				Brawler tar = tars[j];
 				if (b.team == tar.team) {
-					System.out.println("NO");
 					continue;
 				}
 				if (b.collided(tar.getX() + 59, tar.getY() + 62, 46)) {
