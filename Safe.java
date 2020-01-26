@@ -13,7 +13,7 @@ public class Safe extends Brawler {
 	public Safe(int t, int[] p) {
 		super(t, p);
 
-		maxHP = 20000;
+		maxHP = 40000;
 		HP = maxHP;
 		scale = 6;
 		img = getImage("safe.png");
@@ -31,8 +31,8 @@ public class Safe extends Brawler {
 					if(showImage) {
 					g2.drawImage(img, tx, null);
 					}
-			
 				}
+
 
 				protected void init(double a, double b) {
 					tx.setToTranslation(a, b);
