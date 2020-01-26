@@ -47,7 +47,7 @@ public class Bea extends Brawler {
 				if (ammo != 3) reload=reloadSpeed;
 			}
 		}
-		if (charged == true) {
+		if (charged) {
 			img = getImage("beaC.png");
 		} else {
 			img = getImage("bea.png");
@@ -77,7 +77,9 @@ public class Bea extends Brawler {
 	// draw the affinetransform
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		if(showImage) {
 		g2.drawImage(img, tx, null);
+		}
 	}
 
 	protected void init(double a, double b) {
