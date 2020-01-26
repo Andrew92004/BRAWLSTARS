@@ -23,6 +23,7 @@ public class Shelly extends Brawler {
 		width = 128*2/3;
 		height = 256;
 		//range = 7
+		combatTimer =0;
 		init(p[0],p[1]);
 	}
 	
@@ -34,7 +35,7 @@ public class Shelly extends Brawler {
 			}
 			ammo--;
 			reload = reloadSpeed;
-			inCombat = true;
+			combatTimer = 5;
 		}
 	}
 	
