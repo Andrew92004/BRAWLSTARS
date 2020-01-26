@@ -70,7 +70,7 @@ public class Shelly extends Brawler {
 			tar = safe;
 		}
 		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=200*200) {
-			spin(getAngle(tar.getX()+64,tar.getY()+64));
+			spin(getAngle(tar.getX()+64,tar.getY()+64)-Math.PI/4);
 			if (ammo==3) {
 			shoot(bullets);
 			return;
