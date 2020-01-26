@@ -15,7 +15,7 @@ public class Shelly extends Brawler {
 	public Shelly(int t, int[] p) {
 		super(t, p);
 		maxCharge = 4620;
-		reloadSpeed = 1.5;
+		reloadSpeed = 1.25;
 		maxHP = 5040;
 		HP = maxHP;
 		scale = 2;
@@ -30,7 +30,7 @@ public class Shelly extends Brawler {
 	public void shoot(ArrayList<Bullet> bullets){
 		if (ammo>0) {
 			for (int i = 0; i < 5; i++){
-				bullets.add(new Bullet(team,x,y,10,theta-Math.PI/8+(i*Math.PI/20),420,10,0));
+				bullets.add(new Bullet(team,x+64,y+64,10,theta-Math.PI/8+(i*Math.PI/20),420,10,0));
 			}
 			ammo--;
 			reload = reloadSpeed;
@@ -41,7 +41,7 @@ public class Shelly extends Brawler {
 	public void update(int fps, ArrayList<Bullet> bullets){
 		if (reload>0){
 			reload-=1/(double)fps;
-			if (reload==0){
+			if (reload<=0){
 				ammo++;
 				if (ammo != 3) reload=reloadSpeed;
 			}
@@ -66,11 +66,13 @@ public class Shelly extends Brawler {
 			}
 		}
 		if (safe.getX()*safe.getX()+safe.getY()*safe.getY()<=100*100) {
-			shoot();
+			shoot(bullets);
 			return;
 		}
-		controlMove(-1,2);
+		if (tar.getX()>x+128) controlMove(2,-1);
+		if (tar.getX()+128<x) controlMove(1,-1);
 		
+		controlMove(-1,2);
 	}
 	//MOVEMENT
 			public void move(){
