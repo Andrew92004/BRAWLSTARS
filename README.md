@@ -8,3 +8,4 @@ TO DO LIST:
 3. reload
 4. bots
 5. player to box collision
+6. health
