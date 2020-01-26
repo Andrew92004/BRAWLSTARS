@@ -126,7 +126,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 						}
 					}
 					//safe
-					if (safe0.getHP() >= 0) {
+					if (b.team == 1) {
 						// safe hitbox is basically perfect at 64 64 64
 						if (b.collided(safe0.getX() + 64, safe0.getY() + 64, 64)) {
 							safe0.takeDamage(b.getDamage(), b.getEffect());
@@ -136,7 +136,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 							continue;
 						}
 					}
-					if (safe1.getHP() >= 0) {
+					if (b.team == 0) {
 						// safe hitbox is basically perfect at 64 64 64
 						if (b.collided(safe1.getX() + 64, safe1.getY() + 64, 64)) {
 							safe1.takeDamage(b.getDamage(), b.getEffect());
@@ -148,9 +148,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 					}
 					// crates
 					for(int k = 0; k < crates.length; k++) {
-						if (b.collided(23, 16, 16)) {
-						i--;
-						break;
+						if (crates[k]==null) continue;
+						if (b.collided(crates[k].getX()+16, crates[k].getY()+16, 32)) {
+							bullets.remove(i);
+							i--;
+							break;
 						}
 					}
 				}
