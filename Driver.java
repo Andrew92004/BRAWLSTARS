@@ -8,22 +8,22 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	// size of jframe
 	int screen_width = 336 * 4;
-	int screen_height = 528 / 2 * 4;
+	int screen_height = 600 / 2 * 4;
 	int[][] Map = new int[25][21];
 	Grass[] bush = new Grass[80];
 	Crate[] crates = new Crate[80];
 	// [0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	Shelly shelly0 = new Shelly(0, new int[] { 200, 200 });
-	Shelly shelly1 = new Shelly(1, new int[] { 200, 600 });
-	Bea bea0 = new Bea(0, new int[] { 400, 200 });
-	Bea bea1 = new Bea(1, new int[] { 400, 600 });
-	Colt colt0 = new Colt(0, new int[] { 600, 200 });
-	Colt colt1 = new Colt(1, new int[] { 600, 800 });
-	Safe safe0 = new Safe(0, new int[] { 800, 200 });
-	Safe safe1 = new Safe(1, new int[] { 800, 600 });
+	Shelly shelly0 = new Shelly(0, new int[] { 630, 1125 });
+	Shelly shelly1 = new Shelly(1, new int[] { 630, 325 });
+	Bea bea0 = new Bea(0, new int[] { 825, 1125 });
+	Bea bea1 = new Bea(1, new int[] { 825, 325 });
+	Colt colt0 = new Colt(0, new int[] { 375, 1125 });
+	Colt colt1 = new Colt(1, new int[] { 375, 325 });
+	Safe safe0 = new Safe(0, new int[] { 600, 1650 });
+	Safe safe1 = new Safe(1, new int[] { 600, -200 });
 	int fps = 60;
-	int camY = screen_height/2 -300;
+	int camY = -700;
 
 	int player = 0;
 
@@ -35,7 +35,10 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
+		if(safe1.getHP()>0&&safe0.getHP()>0) {
+			
 		g.translate(0, camY);
+		}
 		
 		// draw brawlers
 		safe0.paint(g);
@@ -171,6 +174,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		bea1.update(fps, bullets);
 
 		// movement
+		if(bea0.getY()>-100&&bea0.getY()< 1600) {
 		if (keys[68]) {
 			bea0.controlMove(2, -1);
 		} else if (keys[65]) {
@@ -188,7 +192,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		} else {
 			bea0.controlMove(-1, 0);
 		}
-
+		}
 	}
 
 	@Override
@@ -318,7 +322,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[23][12] = 1;
 
 		// upper center boxes
-		Map[2][6] = 2;
+	//	Map[2][6] = 2;
 		Map[2][7] = 2;
 		Map[2][8] = 2;
 		Map[2][9] = 2;
@@ -326,7 +330,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[2][11] = 2;
 		Map[2][12] = 2;
 		Map[2][13] = 2;
-		Map[2][14] = 2;
+	//	Map[2][14] = 2;
 
 		// left hand side crates
 		Map[6][4] = 2;
@@ -388,9 +392,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[18][16] = 2;
 
 		// bottom middle crates
-		Map[21][8] = 2;
-		Map[21][10] = 2;
-		Map[22][6] = 2;
+	//	Map[22][6] = 2;
 		Map[22][7] = 2;
 		Map[22][8] = 2;
 		Map[22][9] = 2;
@@ -398,7 +400,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[22][11] = 2;
 		Map[22][12] = 2;
 		Map[22][13] = 2;
-		Map[22][14] = 2;
+	//	Map[22][14] = 2;
 		int z = 0;
 		int c = 0;
 		for (int i = 0; i < 25; i++) {
