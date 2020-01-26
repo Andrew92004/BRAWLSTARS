@@ -32,14 +32,42 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	@Override
 	public void paint(Graphics g) {
 		super.paintComponent(g);
+
 		// background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
-		if(safe1.getHP()>0&&safe0.getHP()>0) {
-			
-		g.translate(0, camY);
+
+		// camera
+		if (safe1.getHP() > 0 && safe0.getHP() > 0) {
+
+			g.translate(0, camY);
 		}
-		
+
+		// healthbar bea0
+		g.setColor(new Color(0, 0, 255));
+		g.fillRect(bea0.getX() + 30, bea0.getY() - 25, 66, 10);
+		g.drawString("You", bea0.getX() + 30, bea0.getY() - 30);
+		// healthbar bea1
+		g.fillRect(bea1.getX() + 30, bea1.getY() - 25, 66, 10);
+		g.drawString("Bot5", bea1.getX() + 30, bea1.getY() - 30);
+		// healthbar colt0
+		g.fillRect(colt0.getX() + 30, colt0.getY() - 25, 66, 10);
+		g.drawString("Bot1", colt0.getX() + 30, colt0.getY() - 30);
+		// healthbar colt1
+		g.fillRect(colt1.getX() + 30, colt1.getY() - 25, 66, 10);
+		g.drawString("Bot3", colt1.getX() + 30, colt1.getY() - 30);
+		// healthbar shelly0
+		g.fillRect(shelly0.getX() + 8, shelly0.getY() - 25, 66, 10);
+		g.drawString("Bot2", shelly0.getX() + 8, shelly0.getY() - 30);
+		// healthbar shelly1
+		g.fillRect(shelly1.getX() + 8, shelly1.getY() - 25, 66, 10);
+		g.drawString("Bot4", shelly1.getX() + 8, shelly1.getY() - 30);
+		// healthbar safe0
+		g.fillRect(safe0.getX() + 5, safe0.getY() - 25, 128, 10);
+		g.drawString("Shoot Me!", safe0.getX() + 40, safe0.getY() - 30);
+		// healthbar safe1
+		g.fillRect(safe1.getX() + 5, safe1.getY() - 25, 128, 10);
+		g.drawString("Shoot Me!", safe1.getX() + 40, safe1.getY() - 30);
 		// draw brawlers
 		safe0.paint(g);
 		safe1.paint(g);
@@ -166,32 +194,43 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 
 		// brawler update
+		shelly0.constrainMove(crates);
 		shelly0.update(fps, bullets);
+
+		shelly1.constrainMove(crates);
 		shelly1.update(fps, bullets);
+
+		colt0.constrainMove(crates);
 		colt0.update(fps, bullets);
+
+		colt1.constrainMove(crates);
 		colt1.update(fps, bullets);
+
+		bea0.constrainMove(crates);
 		bea0.update(fps, bullets);
+
+		bea1.constrainMove(crates);
 		bea1.update(fps, bullets);
 
 		// movement
-		if(bea0.getY()>-100&&bea0.getY()< 1600) {
-		if (keys[68]) {
-			bea0.controlMove(2, -1);
-		} else if (keys[65]) {
-			bea0.controlMove(1, -1);
-		} else {
-			bea0.controlMove(0, -1);
-		}
+		if (bea0.getY() > -100 && bea0.getY() < 1600) {
+			if (keys[68]) {
+				bea0.controlMove(2, -1);
+			} else if (keys[65]) {
+				bea0.controlMove(1, -1);
+			} else {
+				bea0.controlMove(0, -1);
+			}
 
-		if (keys[87]) {
-			bea0.controlMove(-1, 1);
-			camY+=3;
-		} else if (keys[83]) {
-			bea0.controlMove(-1, 2);
-			camY-=3;
-		} else {
-			bea0.controlMove(-1, 0);
-		}
+			if (keys[87]) {
+				bea0.controlMove(-1, 1);
+				camY += 3;
+			} else if (keys[83]) {
+				bea0.controlMove(-1, 2);
+				camY -= 3;
+			} else {
+				bea0.controlMove(-1, 0);
+			}
 		}
 	}
 
@@ -322,7 +361,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[23][12] = 1;
 
 		// upper center boxes
-	//	Map[2][6] = 2;
+		// Map[2][6] = 2;
 		Map[2][7] = 2;
 		Map[2][8] = 2;
 		Map[2][9] = 2;
@@ -330,7 +369,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[2][11] = 2;
 		Map[2][12] = 2;
 		Map[2][13] = 2;
-	//	Map[2][14] = 2;
+		// Map[2][14] = 2;
 
 		// left hand side crates
 		Map[6][4] = 2;
@@ -392,7 +431,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[18][16] = 2;
 
 		// bottom middle crates
-	//	Map[22][6] = 2;
+		// Map[22][6] = 2;
 		Map[22][7] = 2;
 		Map[22][8] = 2;
 		Map[22][9] = 2;
@@ -400,7 +439,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[22][11] = 2;
 		Map[22][12] = 2;
 		Map[22][13] = 2;
-	//	Map[22][14] = 2;
+		// Map[22][14] = 2;
 		int z = 0;
 		int c = 0;
 		for (int i = 0; i < 25; i++) {
