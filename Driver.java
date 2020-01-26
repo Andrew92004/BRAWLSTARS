@@ -232,22 +232,24 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 				}
 			}
 		}
-		System.out.println(targets[1]);
+		//System.out.println(targets[1]);
 		shelly0.constrainMove(crates);
 		shelly0.update(fps, bullets);
-		shelly0.runBot(bullets, brls[targets[0]], safe1);
+		shelly0.runBot(bullets, brls[1],brls[3],brls[5], safe1);
 
+		
 		shelly1.constrainMove(crates);
 		shelly1.update(fps, bullets);
-		shelly1.runBot(bullets, brls[targets[1]], safe0);
+		shelly1.runBot(bullets, brls[0],brls[2],brls[4], safe0);
+
 
 		colt0.constrainMove(crates);
 		colt0.update(fps, bullets);
-		colt0.runBot(bullets, brls[targets[2]], safe1);
+		colt0.runBot(bullets, brls[1],brls[3],brls[5], safe1);
 
 		colt1.constrainMove(crates);
 		colt1.update(fps, bullets);
-		colt1.runBot(bullets, brls[targets[3]], safe0);
+		colt1.runBot(bullets, brls[0],brls[2],brls[4], safe0);
 
 		bea0.constrainMove(crates);
 		bea0.update(fps, bullets);
@@ -257,7 +259,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		bea1.constrainMove(crates);
 		bea1.update(fps, bullets);
-		bea1.runBot(bullets, brls[targets[5]], safe0);
+		bea1.runBot(bullets, brls[0],brls[2],brls[4], safe0);
 
 		// movement
 		if (keys[68]) {
@@ -333,11 +335,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[2][19] = 1;
 
 		// upper middle grass
-		Map[1][8] = 1;
-		Map[1][9] = 1;
-		Map[1][10] = 1;
-		Map[1][11] = 1;
-		Map[1][12] = 1;
+		/*
+		 * Map[1][8] = 1; Map[1][9] = 1; Map[1][10] = 1; Map[1][11] = 1; Map[1][12] = 1;
+		 */
 
 		// middle left hand side of grass
 		Map[9][1] = 1;
@@ -402,21 +402,17 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[23][19] = 1;
 
 		// bottom middle grass
-		Map[23][8] = 1;
-		Map[23][9] = 1;
-		Map[23][10] = 1;
-		Map[23][11] = 1;
-		Map[23][12] = 1;
+		/*
+		 * Map[23][8] = 1; Map[23][9] = 1; Map[23][10] = 1; Map[23][11] = 1; Map[23][12]
+		 * = 1;
+		 */
 
 		// upper center boxes
 		// Map[2][6] = 2;
-		Map[2][7] = 2;
-		Map[2][8] = 2;
-		Map[2][9] = 2;
-		Map[2][10] = 2;
-		Map[2][11] = 2;
-		Map[2][12] = 2;
-		Map[2][13] = 2;
+		/*
+		 * Map[2][7] = 2; Map[2][8] = 2; Map[2][9] = 2; Map[2][10] = 2; Map[2][11] = 2;
+		 * Map[2][12] = 2; Map[2][13] = 2;
+		 */
 		// Map[2][14] = 2;
 
 		// left hand side crates
@@ -478,13 +474,10 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		// bottom middle crates
 		// Map[22][6] = 2;
-		Map[22][7] = 2;
-		Map[22][8] = 2;
-		Map[22][9] = 2;
-		Map[22][10] = 2;
-		Map[22][11] = 2;
-		Map[22][12] = 2;
-		Map[22][13] = 2;
+		/*
+		 * Map[22][7] = 2; Map[22][8] = 2; Map[22][9] = 2; Map[22][10] = 2; Map[22][11]
+		 * = 2; Map[22][12] = 2; Map[22][13] = 2;
+		 */
 		// Map[22][14] = 2;
 		int z = 0;
 		int c = 0;
