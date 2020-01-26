@@ -26,10 +26,10 @@ public class Bea extends Brawler {
 	public void shoot(ArrayList<Bullet> bullets) {
 		if (ammo > 0) {
 			if (charged == true) {
-				bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 3080, 2, 0));
+				bullets.add(new Bullet(team, x + 64, y + 60, 16, theta, 3080, 2, 0));
 				System.out.println("Bea CHARGE");
 			} else {
-				bullets.add(new Bullet(team, x + 64, y + 60, 8, theta, 1120, 2, 0));
+				bullets.add(new Bullet(team, x + 64, y + 60, 16, theta, 1120, 2, 0));
 			}
 			ammo--;
 			reload = reloadSpeed;
@@ -41,7 +41,6 @@ public class Bea extends Brawler {
 	public void update(int fps, ArrayList<Bullet> bullets){
 
 		if (reload>0){
-			System.out.println(reload+" sec left");
 			reload-=1/(double)fps;
 			if (reload<=0){
 				ammo++;
