@@ -64,12 +64,10 @@ public class Shelly extends Brawler {
 		move();
 	}
 	
-	public void runBot(ArrayList<Bullet> bullets, Brawler tar, Safe safe) {
-		System.out.println(ammo);
-		if (safe.getX()*safe.getX()+safe.getY()*safe.getY()<=100*100) {
-			spin(getAngle(tar.getX()+64,tar.getY()+64));
-			shoot(bullets);
-			return;
+	public void runBot(ArrayList<Bullet> bullets, Brawler brl, Safe safe) {
+		Brawler tar = brl;
+		if ((x-safe.getX())*(x-safe.getX())+(y-safe.getY())*(y-safe.getY())<=300*300) {
+			tar = safe;
 		}
 		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=200*200) {
 			spin(getAngle(tar.getX()+64,tar.getY()+64));
@@ -82,7 +80,9 @@ public class Shelly extends Brawler {
 		else if (tar.getX()+64<x) controlMove(1,-1);
 		else controlMove(0,-1);
 		
-		controlMove(-1,2);
+		if (tar.getY()>y+64) controlMove(-1,2);
+		else if (tar.getY()+64<x) controlMove(-1,1);
+		else controlMove(-1,0);
 	}
 	//MOVEMENT
 			public void move(){
