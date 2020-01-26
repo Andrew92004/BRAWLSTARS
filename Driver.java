@@ -15,8 +15,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Brawler[] brawlers = new Brawler[8];
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	Bea bea = new Bea(0, new int[] { 200, 200 });
-	Colt dummy = new Colt(1, new int[] { 200, 600 });
+	Colt dummy = new Colt(1, new int[] { 300, 600 });
 	Colt colt = new Colt(0, new int[] { 200, 300 });
+	Safe safe = new Safe(1,new int[] {600,300});
 	private Keyboard keyboard = Keyboard.getInstance();
 
 	@Override
@@ -29,7 +30,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// bea.paint(g);
 		colt.paint(g);
 		dummy.paint(g);
-
+		safe.paint(g);
 		// g.drawOval(bea.getX(), bea.getY(), 10, 10);
 
 		for (int i = 0; i < bullets.size(); i++) {
@@ -55,7 +56,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			}
 		}
 
-		g.drawRect(dummy.getX(), dummy.getY(), 128, 128);
+	//	g.drawRect(dummy.getX(), dummy.getY(), 128, 128);
 
 	}
 
@@ -66,23 +67,49 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			b.move();
 			for (int j = 0; j < brawlers.length; j++) {
 				Brawler tar = dummy;
+				Brawler tar2 = safe;
 				if (b.team == tar.team) {
 					System.out.println("NO");
 					continue;
 				}
-				if (b.collided(tar.getX() + 64, tar.getY() + 64, 64)) {
+				//dum colt
+				//colt hitbox is basically perfect at 59 62 46
+				if (b.collided(tar.getX() + 59, tar.getY() +62, 46)) {
 					tar.takeDamage(b.getDamage(), b.getEffect());
 					b.onHit(tar);
 					bullets.remove(i);
 					i--;
 					break;
 				}
+				//safe
+				if(safe.getHP()>= 0) {
+				if(b.team == tar2.team) {
+					System.out.println("hes on ur team nerd");
+					continue;
+				}
+				//safe hitbox is basically perfect at 64 64 64
+				if (b.collided(tar2.getX() + 64, tar2.getY() + 64, 64)) {
+					tar2.takeDamage(b.getDamage(), b.getEffect());
+					b.onHit(tar2);
+					bullets.remove(i);
+					i--;
+					break;
+				}
+				}
+				//crates
+			//	for(int k=0; k<crates.length; k++) {
+			//		if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 16)) {
+			//			i--;
+			//			break;
+				//	}
+				//}
 			}
 		}
+		//safe.update(screen_height,bullets);
 		dummy.update(screen_height, bullets);
 		// dummy.move();
 		dummy.controlMove(39, 0);
-		// System.out.println("dummy: " + dummy.getHP());
+	
 
 		if (keyboard.isKeyDown(KeyEvent.VK_D)) {
 			colt.controlMove(68, 0);
@@ -365,9 +392,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("CLICK");
+		
 		// bea.shoot(bullets);
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			System.out.println("CLICK");
 		colt.shoot(bullets);
+		}
 
 	}
 
