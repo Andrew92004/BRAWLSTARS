@@ -67,21 +67,29 @@ public class Bea extends Brawler {
 		move();
 	}
 	//bot
-	public void runBot(ArrayList<Bullet> bullets, Brawler tar, Safe safe) {
-		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=550*550) {
-			spin(getAngle(tar.getX()+64,tar.getY()+64));
-			if (ammo==3) {
-			shoot(bullets);
-			return;
-			}
-		}
-		if (safe.getX()*safe.getX()+safe.getY()*safe.getY()<=100*100) {
-			shoot();
-			return;
-		}
-		controlMove(-1,2);
-		
-	}
+	public void runBot(ArrayList<Bullet> bullets, Brawler brl, Safe safe) {
+        Brawler tar = brl;
+        if ((x-safe.getX())*(x-safe.getX())+(y-safe.getY())*(y-safe.getY())<=300*300) {
+            tar = safe;
+        }
+        if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=550*550) {
+            spin(getAngle(tar.getX()+64,tar.getY()+64));
+            if (ammo==3) {
+            shoot(bullets);
+            return;
+            }
+        }
+        if(Math.abs(x-tar.getX())> 300) {
+        
+        if (tar.getX()>x+64) controlMove(2,-1);
+        else if (tar.getX()+64<x) controlMove(1,-1);
+        else controlMove(0,-1);
+        
+        if (tar.getY()>y+64) controlMove(-1,2);
+        else if (tar.getY()+64<x) controlMove(-1,1);
+        else controlMove(-1,0);
+    }
+	}        
 	// MOVEMENT
 	public void move() {
 		tx.translate(vy * Math.cos(Math.PI / 2 + theta) / scale,
