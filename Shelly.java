@@ -46,6 +46,13 @@ public class Shelly extends Brawler {
 				if (ammo != 3) reload=reloadSpeed;
 			}
 		}
+		if (HP<=0){
+			HP = maxHP;
+			x = xi;
+			y = yi;
+			ammo = 3;
+			init(x,y);
+		}
 		move();
 	}
 	//MOVEMENT
