@@ -23,7 +23,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Safe safe0 = new Safe(0, new int[] { 800, 200 });
 	Safe safe1 = new Safe(1, new int[] { 800, 600 });
 	int fps = 60;
-	int camY = 0;
+	int camY = screen_height/2 -300;
 
 	int player = 0;
 
