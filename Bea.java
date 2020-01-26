@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Bea extends Brawler {
 	double scale;
 	boolean charged;
-	double combatTimer;
 	public Bea(int t, int[] p) {
 		super(t, p);
 		reloadSpeed = 0.9;
@@ -33,7 +32,7 @@ public class Bea extends Brawler {
 			}
 			ammo--;
 			reload = reloadSpeed;
-			combatTimer = 3;
+			combatTimer = 5;
 			charged= !charged;
 		}
 	}
