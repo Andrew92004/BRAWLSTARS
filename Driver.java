@@ -12,31 +12,38 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int[][] Map = new int[25][21];
 	Grass[] bush = new Grass[80];
 	Crate[] crates = new Crate[80];
-	Brawler[] brawlers = new Brawler[8];
-	// [0] and [1] are safes, [2] is player, [3] and [4] are allies, [5] [6] [7] are
-	// enemies
+	//[0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	Bea bea = new Bea(0, new int[] { 200, 200 });
-	Colt dummy = new Colt(1, new int[] { 300, 600 });
-	Colt colt = new Colt(0, new int[] { 200, 300 });
-	Safe safe = new Safe(1, new int[] { 600, 300 });
-	Safe allySafe = new Safe(0, new int[] { 600, 500 });
+	Shelly shelly0 = new Shelly(0, new int[] { 200, 300 });
+	Shelly shelly1 = new Shelly(1, new int[] { 300, 600 });
+	Bea bea0 = new Bea(0, new int[] { 200, 200 });
+	Bea bea1 = new Bea(1, new int[] { 300, 600 });
+	Colt colt0 = new Colt(0, new int[] { 200, 300 });
+	Colt colt1 = new Colt(1, new int[] { 300, 600 });
+	Safe safe0 = new Safe(0, new int[] { 400, 500 });
+	Safe safe1 = new Safe(1,new int[] {700,500});
+	
+	int player = 0;
+	
 	boolean keys[] = new boolean[256];
-
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		// food
+		//background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
 
-		// bea.paint(g);
-		colt.paint(g);
-		dummy.paint(g);
-		safe.paint(g);
-		allySafe.paint(g);
-		// g.drawOval(bea.getX(), bea.getY(), 10, 10);
-
+		//draw brawlers
+		safe0.paint(g);
+		safe1.paint(g);
+		shelly0.paint(g);
+		shelly1.paint(g);
+		colt0.paint(g);
+		colt1.paint(g);
+		bea0.paint(g);
+		bea1.paint(g);
+		
 		for (int i = 0; i < bullets.size(); i++) {
 			// System.out.println("bullet " +i);
 			Bullet b = bullets.get(i);
@@ -59,8 +66,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 				crates[i].paint(g);
 			}
 		}
-
-		if (safe.getHP() <= 0) {
+		
+		if (safe1.getHP() <= 0) {
 			g.setColor(new Color(100, 231, 100));
 			g.fillRect(0, 0, screen_width, screen_height);
 			g.setColor(new Color(0, 0, 0));
@@ -74,7 +81,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			g.drawString(".-.", 650, 875);
 		}
 
-		if (allySafe.getHP() <= 0) {
+		if (safe0.getHP() <= 0) {
 			g.setColor(new Color(100, 231, 100));
 			g.fillRect(0, 0, screen_width, screen_height);
 			g.setColor(new Color(0, 0, 0));
@@ -87,97 +94,93 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			g.drawString("U LOST TO SCUFFED BOTS", 325, 800);
 			g.drawString("BRUH U TRASH", 450, 875);
 		}
-
-		// g.drawRect(dummy.getX(), dummy.getY(), 128, 128);
+		
 
 	}
 
 	public void update() {
 		// bullet Movement
-		for (int i = 0; i < bullets.size(); i++) {
-			Bullet b = bullets.get(i);
-			b.move();
-			for (int j = 0; j < brawlers.length; j++) {
-				Brawler tar = dummy;
-				Brawler tar2 = safe;
-				Brawler tar3 = allySafe;
-				if (b.team == tar.team) {
-					System.out.println("NO");
-					continue;
-				}
-				// dum colt
-				// colt hitbox is basically perfect at 59 62 46
-				if (b.collided(tar.getX() + 59, tar.getY() + 62, 46)) {
-					tar.takeDamage(b.getDamage(), b.getEffect());
-					b.onHit(tar);
-					bullets.remove(i);
-					i--;
-					break;
-				}
-				// safe
-				if (safe.getHP() >= 0) {
-
-					// safe hitbox is basically perfect at 64 64 64
-					if (b.collided(tar2.getX() + 64, tar2.getY() + 64, 64)) {
-						tar2.takeDamage(b.getDamage(), b.getEffect());
-						b.onHit(tar2);
-						bullets.remove(i);
-						i--;
-						break;
+				for (int i = 0; i < bullets.size(); i++) {
+					Bullet b = bullets.get(i);
+					b.move();
+					Brawler[] tars = new Brawler[6];
+					tars[0] = shelly0;
+					tars[1] = shelly1;
+					tars[2] = colt0;
+					tars[3] = colt1;
+					tars[4] = bea0;
+					tars[5] = bea0;
+					//brawler collision
+					for (int j = 0; j < tars.length; j++) {
+						Brawler tar = tars[j];
+						if (b.team == tar.team) {
+							System.out.println("NO");
+							continue;
+						}
+						if (b.collided(tar.getX() + 59, tar.getY() + 62, 46)) {
+							tar.takeDamage(b.getDamage(), b.getEffect());
+							b.onHit(tar);
+							bullets.remove(i);
+							i--;
+							break;
+						}
 					}
-					
-				}
-				if (allySafe.getHP() >= 0) {
-					if (b.team == tar3.team) {
-						continue;
+					//safe
+					if (safe0.getHP() >= 0) {
+						// safe hitbox is basically perfect at 64 64 64
+						if (b.collided(safe0.getX() + 64, safe0.getY() + 64, 64)) {
+							safe0.takeDamage(b.getDamage(), b.getEffect());
+							b.onHit(safe0);
+							bullets.remove(i);
+							i--;
+							break;
+						}
 					}
-					// safe hitbox is basically perfect at 64 64 64
-					if (b.collided(tar3.getX() + 64, tar3.getY() + 64, 64)) {
-						tar3.takeDamage(b.getDamage(), b.getEffect());
-						b.onHit(tar3);
-						bullets.remove(i);
-						i--;
-						break;
+					if (safe1.getHP() >= 0) {
+						// safe hitbox is basically perfect at 64 64 64
+						if (b.collided(safe1.getX() + 64, safe1.getY() + 64, 64)) {
+							safe1.takeDamage(b.getDamage(), b.getEffect());
+							b.onHit(safe1);
+							bullets.remove(i);
+							i--;
+							break;
+						}
 					}
-					
+						// crates
+						// for(int k=0; k<crates.length; k++) {
+						// if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 16)) {
+						// i--;
+						// break;
+						// }
+						// }
 				}
-				// crates
-				// for(int k=0; k<crates.length; k++) {
-				// if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 16)) {
-				// i--;
-				// break;
-				// }
-				// }
-			}
-		}
-		// safe.update(screen_height,bullets);
-		dummy.update(screen_height, bullets);
-		// dummy.move();
-		dummy.controlMove(39, 0);
+				// safe1.update(screen_height,bullets);
+			
 
-		if (keys[68]) {
-			colt.controlMove(2, -1);
-		} else if (keys[65]) {
-			colt.controlMove(1, -1);
-		} else {
-			colt.controlMove(0, -1);
-		}
+				if (keys[68]) {
+					bea0.controlMove(2, -1);
+				} else if (keys[65]) {
+					bea0.controlMove(1, -1);
+				} else {
+					bea0.controlMove(0, -1);
+				}
 
-		if (keys[87]) {
-			colt.controlMove(-1, 1);
-		} else if (keys[83]) {
-			colt.controlMove(-1, 2);
-		} else {
-			colt.controlMove(-1, 0);
-		}
+				if (keys[87]) {
+					bea0.controlMove(-1, 1);
+				} else if (keys[83]) {
+					bea0.controlMove(-1, 2);
+				} else {
+					bea0.controlMove(-1, 0);
+				}
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// bea.move();
-		colt.move();
-		colt.shotPattern(bullets);
+		bea0.update(6, bullets);
+		//colt.shotPattern(bullets);
+		
 		update();
 		repaint();
 	}
@@ -206,14 +209,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setVisible(true);
 
-		// BRAWLER INIT
-		brawlers[0] = new Safe(0, new int[] { 600, 300 });
-		brawlers[1] = new Safe(1, new int[] { 600, 300 });
-
-		brawlers[5] = new Shelly(1, new int[] { 100, 100 });
-		brawlers[6] = new Colt(1, new int[] { 100, 100 });
-		brawlers[7] = new Bea(1, new int[] { 100, 100 });
-
+		
+		
 		// images
 		// Map = 0 means no image
 		// Map = 1 means grass
@@ -448,11 +445,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+		
 		// bea.shoot(bullets);
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			System.out.println("CLICK");
-			colt.shoot(bullets);
+		bea0.shoot(bullets);
 		}
 
 	}
@@ -489,8 +486,10 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	public void mouseMoved(MouseEvent m) {
 		// TODO Auto-generated method stub
 		// bea.spin(bea.getAngle(m.getX()-2,m.getY()-20));
-		colt.spin(colt.getAngle(m.getX() - 2, m.getY() - 20));
+		bea0.spin(bea0.getAngle(m.getX() - 2, m.getY() - 20));
 		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
+	
+	
 
 }
