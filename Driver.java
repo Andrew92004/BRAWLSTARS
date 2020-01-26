@@ -220,35 +220,26 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		brls[4] = bea0;
 		brls[5] = bea1;
 		
-		int[] targets = new int[6];
-		int dist = 0;
-		for (int j = 0; j < brls.length; j++) {
-			for (int i = 0; i < brls.length; i++) {
-				if (brls[i].team != shelly0.team) {
-					if ((brls[j].getX()-brls[i].getX())*(brls[j].getX()-brls[i].getX())+(brls[j].getY()-brls[i].getY())*(brls[j].getY()-brls[i].getY())>dist) {
-						dist = (brls[0].getX()-brls[i].getX())*(brls[j].getX()-brls[i].getX())+(brls[j].getY()-brls[i].getY())*(brls[j].getY()-brls[i].getY());
-						targets[j] = i;
-					}
-				}
-			}
+		for (int i = 0; i < brls.length; i++) {
+			
 		}
-		System.out.println(targets[1]);
+		
 		shelly0.constrainMove(crates);
 		shelly0.update(fps, bullets);
 		
-		shelly0.runBot(bullets, brls[targets[0]], safe1);
+		shelly0.runBot(bullets, shelly1, safe1);
 
 		shelly1.constrainMove(crates);
 		shelly1.update(fps, bullets);
-		shelly1.runBot(bullets, brls[targets[1]], safe0);
+		shelly1.runBot(bullets, bea0, safe0);
 
 		colt0.constrainMove(crates);
 		colt0.update(fps, bullets);
-		colt0.runBot(bullets, brls[targets[2]], safe1);
+		colt0.runBot(bullets, colt1, safe1);
 
 		colt1.constrainMove(crates);
 		colt1.update(fps, bullets);
-		colt1.runBot(bullets, brls[targets[3]], safe0);
+		colt1.runBot(bullets, bea0, safe0);
 
 		bea0.constrainMove(crates);
 		bea0.update(fps, bullets);
@@ -258,7 +249,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		bea1.constrainMove(crates);
 		bea1.update(fps, bullets);
-		bea1.runBot(bullets, brls[targets[5]], safe0);
+		bea1.runBot(bullets, bea0, safe0);
 
 		// movement
 		if (keys[68]) {
