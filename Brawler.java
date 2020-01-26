@@ -11,7 +11,6 @@ public class Brawler {
 	protected int ammo;
 	protected int maxHP;
 	protected int HP;
-	protected boolean inCombat;
 	protected Image img;
 	protected int x, y;
 	protected double vx, vy;
@@ -21,6 +20,7 @@ public class Brawler {
 	protected double scale;
 	protected boolean showImage;
 	protected int xi, yi;
+	protected double combatTimer;
 	public Brawler(int t, int[] p){
 		team = t;
 		x = p[0];
@@ -39,7 +39,7 @@ public class Brawler {
 	}
 	
 	public void takeDamage(int damage, int effect){
-		inCombat = true;
+		combatTimer = 5;
 		HP -= damage;
 		System.out.println("HP: " + HP);
 		if(HP<= 0) {
