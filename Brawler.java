@@ -34,7 +34,7 @@ public class Brawler {
 	}
 	
 	public void heal(){
-		HP+=maxHP/25;
+		HP+=maxHP/250;
 		if (HP>maxHP) HP = maxHP;
 	}
 	
