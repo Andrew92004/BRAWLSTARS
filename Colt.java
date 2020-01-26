@@ -16,7 +16,7 @@ public class Colt extends Brawler {
 		super(t, p);
 		maxCharge = 4620;
 		reloadSpeed = 1.5;
-		maxHP = 5040;
+		maxHP = 3920;
 		HP = maxHP;
 		scale = 2;
 		img = getImage("colt.png");
@@ -55,8 +55,8 @@ public class Colt extends Brawler {
 	public void shotPattern(ArrayList<Bullet> bullets){
 		if (shotTimer<=0) return;
 		if (shotTimer%3==0){
-			for (int i = 0; i < 5; i++){
-				bullets.add(new Bullet(team,x+64,y+60,18,theta,140,2,0));
+			for (int i = 0; i < 1; i++){
+				bullets.add(new Bullet(team,x+64,y+60,15,theta,420,2,0));
 			}
 		}
 		shotTimer --;
