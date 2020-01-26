@@ -18,8 +18,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Colt dummy = new Colt(1, new int[] { 300, 600 });
 	Colt colt = new Colt(0, new int[] { 200, 300 });
 	Safe safe = new Safe(1,new int[] {600,300});
-	private Keyboard keyboard = Keyboard.getInstance();
-
+	
+	boolean keys[] = new boolean[256];
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -111,17 +112,21 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		dummy.controlMove(39, 0);
 	
 
-		if (keyboard.isKeyDown(KeyEvent.VK_D)) {
-			colt.controlMove(68, 0);
-		} else if (keyboard.isKeyDown(KeyEvent.VK_A)) {
-			colt.controlMove(65, 0);
-		} else if (keyboard.isKeyDown(KeyEvent.VK_W)) {
-			colt.controlMove(0, 87);
-		} else if (keyboard.isKeyDown(KeyEvent.VK_S)) {
-			colt.controlMove(0, 83);
-		} else {
-			colt.controlMove(-1, -1);
+		if (keys[68]) {
+			colt.controlMove(2, -1);
 		}
+		else if (keys[65]) {
+			colt.controlMove(1, -1);
+		}
+		else {colt.controlMove(0, -1);}
+		
+		if (keys[87]) {
+			colt.controlMove(-1, 1);
+		}
+		else if (keys[83]) {
+			colt.controlMove(-1, 2);
+		}
+		else {colt.controlMove(-1, 0);}
 
 	}
 
@@ -152,7 +157,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// initialize structures
 
 		f.add(this);
-		f.addKeyListener(keyboard);
 
 		Timer t = new Timer(17, this);
 		t.start();
@@ -369,7 +373,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		 * (e.getKeyCode()==68) {colt.controlMove(68, 0);} if (e.getKeyCode()==87)
 		 * {colt.controlMove(0, 87);} if (e.getKeyCode()==83) {colt.controlMove(0, 83);}
 		 */
-
+		keys[e.getKeyCode()] = true;
 	}
 
 	@Override
@@ -382,6 +386,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		 * (e.getKeyCode()==68) {colt.controlMove(-1, 0);} if (e.getKeyCode()==87)
 		 * {colt.controlMove(0, -1);} if (e.getKeyCode()==83) {colt.controlMove(0, -1);}
 		 */
+		keys[e.getKeyCode()] = false;
 	}
 
 	@Override
@@ -436,5 +441,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		colt.spin(colt.getAngle(m.getX() - 2, m.getY() - 20));
 		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
+	
+	
 
 }
