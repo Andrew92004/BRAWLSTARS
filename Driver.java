@@ -227,12 +227,13 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 		bea0.constrainMove(crates);
 		bea0.update(fps, bullets);
+		
 		//camY -= bea0.vy;
 		camY = 300-bea0.getY();
 
 		bea1.constrainMove(crates);
 		bea1.update(fps, bullets);
-		//bea1.runBot(bullets, bea0, safe0);
+		bea1.runBot(bullets, bea0, safe0);
 
 		// movement
 		if (keys[68]) {
