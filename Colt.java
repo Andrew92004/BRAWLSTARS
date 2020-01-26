@@ -47,7 +47,7 @@ public class Colt extends Brawler {
 	}
 	public void update(int fps, ArrayList<Bullet> bullets){
 		if (reload>0){
-			reload-=1/fps;
+			reload-=1/(double)fps;
 			if (reload==0){
 				ammo++;
 				if (ammo != 3) reload=reloadSpeed;
