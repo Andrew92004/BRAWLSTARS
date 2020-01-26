@@ -13,6 +13,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Grass[] bush = new Grass[80];
 	Crate[] crates = new Crate[80];
 	Brawler[] brawlers = new Brawler[8];
+	//[0] and [1] are safes, [2] is player, [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	Bea bea = new Bea(0, new int[] { 200, 200 });
 	Colt dummy = new Colt(1, new int[] { 300, 600 });
@@ -113,20 +114,20 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	
 
 		if (keys[68]) {
-			colt.controlMove(2, -1);
+			brawlers[2].controlMove(2, -1);
 		}
 		else if (keys[65]) {
-			colt.controlMove(1, -1);
+			brawlers[2].controlMove(1, -1);
 		}
-		else {colt.controlMove(0, -1);}
+		else {brawlers[2].controlMove(0, -1);}
 		
 		if (keys[87]) {
-			colt.controlMove(-1, 1);
+			brawlers[2].controlMove(-1, 1);
 		}
 		else if (keys[83]) {
-			colt.controlMove(-1, 2);
+			brawlers[2].controlMove(-1, 2);
 		}
-		else {colt.controlMove(-1, 0);}
+		else {brawlers[2].controlMove(-1, 0);}
 
 	}
 
@@ -163,6 +164,15 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setVisible(true);
 
+		
+		//BRAWLER INIT
+		brawlers[0] = new Safe(0,new int[] {600,300});
+		brawlers[1] = new Safe(1,new int[] {600,300});
+		
+		brawlers[5] = new Shelly(1,new int[] {100,100});
+		brawlers[6] = new Colt(1,new int[] {100,100});
+		brawlers[7] = new Bea(1,new int[] {100,100});
+		
 		// images
 		// Map = 0 means no image
 		// Map = 1 means grass
