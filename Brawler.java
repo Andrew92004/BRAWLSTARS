@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.Image;
 
 
@@ -18,6 +19,7 @@ public class Brawler {
 	protected double theta;
 	protected int width, height;
 	protected double scale;
+	protected boolean showImage;
 	protected int xi, yi;
 	public Brawler(int t, int[] p){
 		team = t;
@@ -28,6 +30,7 @@ public class Brawler {
 		ammo = 3;
 		supCharge = 0;
 		vel = 3;
+		showImage = true;
 	}
 	
 	public void heal(){
@@ -38,12 +41,36 @@ public class Brawler {
 		inCombat = true;
 		HP -= damage;
 		System.out.println("HP: " + HP);
+		if(HP<= 0) {
+			showImage = false;
+		}
 	}
-
-
-
 	
-
+	
+	public void constrainMove(Crate[] crates) {
+		for (int i = 0; i < crates.length; i++) {
+			if (crates[i]==null) continue;
+			Crate c = crates[i];
+			if (x+128>c.getX()+5&&x+5<c.getX()+64) {
+				if (y + 128 >= c.getY()&&y <= c.getY()+32&&vy > 0) {
+					vy = 0;
+				}
+				if (y + 64 >= c.getY()+32&&y <= c.getY()+64&&vy < 0) {
+					vy = 0;
+				}
+			}
+			if (y+128>c.getY()+5&&y+5<c.getY()+64) {
+				if (x + 128 >= c.getX()&&x <= c.getX()+32&&vx > 0) {
+					vx = 0;
+				}
+				if (x + 64 >= c.getX()+32&&x <= c.getX()+64&&vx < 0) {
+					vx = 0;
+				}
+			}
+		}
+	}
+	
+	
 	
 	public void shoot(){};
 	
@@ -58,6 +85,7 @@ public class Brawler {
 			if (ud == 1) vy = -vel;
 			if (ud == 0) vy = 0;
 		}
+
 	}
 	
 	
@@ -81,5 +109,7 @@ public class Brawler {
 	public int getY() {
 		return y;
 	}
+
+	public void paint(Graphics g) {}
 	
 }
