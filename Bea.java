@@ -68,7 +68,7 @@ public class Bea extends Brawler {
 	}
 	//bot
 	public void runBot(ArrayList<Bullet> bullets, Brawler tar, Safe safe) {
-		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=400*400) {
+		if ((x-tar.getX())*(x-tar.getX())+(y-tar.getY())*(y-tar.getY())<=550*550) {
 			spin(getAngle(tar.getX()+64,tar.getY()+64));
 			if (ammo==3) {
 			shoot(bullets);
