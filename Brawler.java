@@ -18,7 +18,6 @@ public class Brawler {
 	protected double theta;
 	protected int width, height;
 	protected double scale;
-	protected boolean showImage;
 	protected int xi, yi;
 	public Brawler(int t, int[] p){
 		team = t;
@@ -29,7 +28,6 @@ public class Brawler {
 		ammo = 3;
 		supCharge = 0;
 		vel = 3;
-		showImage = true;
 	}
 	
 	public void heal(){
@@ -40,9 +38,6 @@ public class Brawler {
 		inCombat = true;
 		HP -= damage;
 		System.out.println("HP: " + HP);
-		if(HP<= 0) {
-			showImage = false;
-		}
 	}
 
 
