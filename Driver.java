@@ -36,12 +36,24 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
-
 		// camera
 		if (safe1.getHP() > 0 && safe0.getHP() > 0) {
-
+			// healthbar safe0
+			g.setColor(new Color(0, 0, 255));
+			g.fillRect(safe0.getX() + 5, safe0.getY() - 25, (int) (128 * safe0.HP / safe0.maxHP), 10);
+			g.drawString("Protect Me!", safe0.getX() + 40, safe0.getY() - 30);
+			// healthbar safe1
+			g.setColor(new Color(255, 0, 0));
+			Font myFont = new Font("Serif", Font.BOLD, 30);
+			g.fillRect(safe1.getX()-550 , safe1.getY() - 290, (int) (256 * safe1.HP / safe1.maxHP), 30);
+			g.setColor(new Color(0,0,0));
+			g.setFont(myFont);
+			g.drawString("Enemy Safe HP", safe1.getX()-520 , safe1.getY() - 265);
 			g.translate(0, camY);
+			Font plain = new Font("Serif", Font.PLAIN, 15);
+			g.setFont(plain);
 		}
+
 
 		// healthbar bea0
 		g.setColor(new Color(0, 0, 255));
@@ -149,6 +161,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 
+	
 	public void update() {
 		// bullet Movement
 		for (int i = 0; i < bullets.size(); i++) {
