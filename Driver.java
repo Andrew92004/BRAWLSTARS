@@ -216,15 +216,18 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			}
 			// crates
 			for (int k = 0; k < crates.length; k++) {
-				if (crates[k] == null)
+				if (crates[k] == null) {
 					continue;
+				}
 				if (b.collided(crates[k].getX() + 16, crates[k].getY() + 16, 32)) {
 					bullets.remove(i);
 					i--;
 					break;
 				}
+
 			}
 		}
+		
 
 		// brawler update
 		Brawler[] brls = new Brawler[6];
@@ -260,7 +263,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		 * 
 		 * }
 		 */
-
+//bot running
 		shelly0.runBot(bullets, brls[5], brls[3], brls[1], safe1);
 		shelly1.runBot(bullets, brls[4], brls[2], brls[0], safe0);
 		colt0.runBot(bullets, brls[5], brls[3], brls[1], safe1);
