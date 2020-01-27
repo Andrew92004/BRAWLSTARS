@@ -14,12 +14,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	Crate[] crates = new Crate[80];
 	// [0] and [1] are safe1s, [2] [3] and [4] are allies, [5] [6] [7] are enemies
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	Shelly shelly0 = new Shelly(0, new int[] { 620, 1650 });
-	Shelly shelly1 = new Shelly(1, new int[] { 620, -200 });
-	Bea bea0 = new Bea(0, new int[] { 815, 1650 });
-	Bea bea1 = new Bea(1, new int[] { 815, -200 });
-	Colt colt0 = new Colt(0, new int[] { 365, 1650 });
-	Colt colt1 = new Colt(1, new int[] { 365, -200 });
+	Shelly shelly0 = new Shelly(0, new int[] { 620, 1450 });
+	Shelly shelly1 = new Shelly(1, new int[] { 620, 0 });
+	Bea bea0 = new Bea(0, new int[] { 815, 1450 });
+	Bea bea1 = new Bea(1, new int[] { 815, 0 });
+	Colt colt0 = new Colt(0, new int[] { 365, 1450 });
+	Colt colt1 = new Colt(1, new int[] { 365, 0 });
 	Safe safe0 = new Safe(0, new int[] { 600, 1125 });
 	Safe safe1 = new Safe(1, new int[] { 600, 325 });
 	int fps = 60;
@@ -32,28 +32,32 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	@Override
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-
+		Graphics2D g2 = (Graphics2D) g;
 		// background
 		g.setColor(new Color(100, 231, 100));
 		g.fillRect(0, 0, 2000, 1600);
-		// camera
+
 		if (safe1.getHP() > 0 && safe0.getHP() > 0) {
 			// healthbar safe0
-			g.setColor(new Color(0, 0, 255));
-			g.fillRect(safe0.getX() + 5, safe0.getY() - 25, (int) (128 * safe0.HP / safe0.maxHP), 10);
-			g.drawString("Protect Me!", safe0.getX() + 40, safe0.getY() - 30);
-			// healthbar safe1
-			g.setColor(new Color(255, 0, 0));
+			g2.setColor(new Color(0, 0, 255));
 			Font myFont = new Font("Serif", Font.BOLD, 30);
-			g.fillRect(safe1.getX()-550 , safe1.getY() - 290, (int) (256 * safe1.HP / safe1.maxHP), 30);
-			g.setColor(new Color(0,0,0));
-			g.setFont(myFont);
-			g.drawString("Enemy Safe HP", safe1.getX()-520 , safe1.getY() - 265);
+			g2.fillRect(safe1.getX() + 425, safe1.getY() - 290, (int) (256 * safe0.HP / safe0.maxHP), 30);
+			g2.setColor(new Color(0, 0, 0));
+			g2.setFont(myFont);
+			g2.drawString("Safe HP", safe1.getX() + 475, safe1.getY() - 265);
+			// healthbar safe1
+			g2.setColor(new Color(255, 0, 0));
+			g2.fillRect(safe1.getX() - 550, safe1.getY() - 290, (int) (256 * safe1.HP / safe1.maxHP), 30);
+			g2.setColor(new Color(0, 0, 0));
+			g2.setFont(myFont);
+			g2.drawString("Enemy Safe HP", safe1.getX() - 520, safe1.getY() - 265);
+
+			// camera
 			g.translate(0, camY);
+			// colors
 			Font plain = new Font("Serif", Font.PLAIN, 15);
 			g.setFont(plain);
 		}
-
 
 		// healthbar bea0
 		g.setColor(new Color(0, 0, 255));
@@ -91,7 +95,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// ammo bar for bea0
 		g.setColor(new Color(255, 215, 0));
 		g.fillRect(bea0.getX() + 30, bea0.getY() - 10, (int) (66 * bea0.ammo / 3), 10);
-		//draw bullets
+		// draw bullets
 		for (int i = 0; i < bullets.size(); i++) {
 			// System.out.println("bullet " +i);
 			Bullet b = bullets.get(i);
@@ -102,7 +106,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			}
 			g.fillOval(b.getX(), b.getY(), 10, 10);
 		}
-		
+
 		// draw brawlers
 		safe1.paint(g);
 		safe0.paint(g);
@@ -116,9 +120,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		bea1.paint(g);
 		bea0.paint(g);
 
-
-
-		//draw bushes
+		// draw bushes
 		for (int i = 0; i < bush.length; i++) {
 			if (bush[i] != null) {
 				bush[i].paint(g);
@@ -130,7 +132,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 				crates[i].paint(g);
 			}
 		}
-		//check win/loss
+
+		// check win/loss
 		if (safe1.getHP() <= 0) {
 			g.setColor(new Color(100, 231, 100));
 			g.fillRect(0, 0, screen_width, screen_height);
@@ -161,7 +164,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
 	}
 
-	
 	public void update() {
 		// bullet Movement
 		for (int i = 0; i < bullets.size(); i++) {
@@ -232,47 +234,67 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		brls[3] = colt1;
 		brls[4] = bea0;
 		brls[5] = bea1;
-		
+
 		int[] targets = new int[6];
 		int dist = 0;
 		for (int j = 0; j < brls.length; j++) {
 			for (int i = 0; i < brls.length; i++) {
 				if (brls[i].team != brls[j].team) {
-					if ((brls[j].getX()-brls[i].getX())*(brls[j].getX()-brls[i].getX())+(brls[j].getY()-brls[i].getY())*(brls[j].getY()-brls[i].getY())>dist) {
-						dist = (brls[0].getX()-brls[i].getX())*(brls[j].getX()-brls[i].getX())+(brls[j].getY()-brls[i].getY())*(brls[j].getY()-brls[i].getY());
+					if ((brls[j].getX() - brls[i].getX()) * (brls[j].getX() - brls[i].getX())
+							+ (brls[j].getY() - brls[i].getY()) * (brls[j].getY() - brls[i].getY()) > dist) {
+						dist = (brls[0].getX() - brls[i].getX()) * (brls[j].getX() - brls[i].getX())
+								+ (brls[j].getY() - brls[i].getY()) * (brls[j].getY() - brls[i].getY());
 						targets[j] = i;
 					}
 				}
 			}
 		}
-		//System.out.println(targets[1]);
+		// priority doesnt work
+		/*
+		 * for (int i = 0; i < brls.length; i += 2) { if (brls[i].isPriority) {
+		 * shelly1.runBot(bullets, brls[i], brls[i], brls[i], safe0);
+		 * colt1.runBot(bullets, brls[i], brls[i], brls[i], safe0); bea1.runBot(bullets,
+		 * brls[i], brls[i], brls[i], safe0); } } for (int b = 1; b < brls.length; b +=
+		 * 2) { if (brls[b].isPriority) { shelly0.runBot(bullets, brls[b], brls[b],
+		 * brls[b], safe1); colt0.runBot(bullets, brls[b], brls[b], brls[b], safe1); }
+		 * 
+		 * }
+		 */
+
+		shelly0.runBot(bullets, brls[5], brls[3], brls[1], safe1);
+		shelly1.runBot(bullets, brls[4], brls[2], brls[0], safe0);
+		colt0.runBot(bullets, brls[5], brls[3], brls[1], safe1);
+		colt1.runBot(bullets, brls[4], brls[2], brls[0], safe0);
+		bea1.runBot(bullets, brls[4], brls[2], brls[0], safe0);
+
+		// System.out.println(targets[1]);
+//ally shelly
 		shelly0.constrainMove(crates);
+		shelly0.hidden(bush);
 		shelly0.update(fps, bullets);
-		shelly0.runBot(bullets, brls[1],brls[3],brls[5], safe1);
-
-		
+//enemy shelly
 		shelly1.constrainMove(crates);
+		shelly1.hidden(bush);
 		shelly1.update(fps, bullets);
-		shelly1.runBot(bullets, brls[0],brls[2],brls[4], safe0);
-
-
+//ally colt
 		colt0.constrainMove(crates);
+		colt0.hidden(bush);
 		colt0.update(fps, bullets);
-		colt0.runBot(bullets, brls[1],brls[3],brls[5], safe1);
-
+//enemy colt
 		colt1.constrainMove(crates);
+		colt1.hidden(bush);
 		colt1.update(fps, bullets);
-		colt1.runBot(bullets, brls[0],brls[2],brls[4], safe0);
-
+//main char
 		bea0.constrainMove(crates);
+		bea0.hidden(bush);
 		bea0.update(fps, bullets);
-		
-		//camY -= bea0.vy;
-		camY = 425-bea0.getY();
-
+//enemy bea
 		bea1.constrainMove(crates);
+		bea1.hidden(bush);
 		bea1.update(fps, bullets);
-		bea1.runBot(bullets, brls[0],brls[2],brls[4], safe0);
+
+		// camY -= bea0.vy;
+		camY = 425 - bea0.getY();
 
 		// movement
 		if (keys[68]) {
@@ -383,7 +405,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[16][10] = 1;
 		Map[16][11] = 1;
 		Map[16][12] = 1;
-		
+
 		Map[9][9] = 1;
 		Map[9][11] = 1;
 		Map[15][9] = 1;
@@ -463,7 +485,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		Map[14][11] = 2;
 		Map[14][12] = 2;
 
-
 		// ride hand side crates
 		Map[6][15] = 2;
 		Map[6][16] = 2;
@@ -516,6 +537,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	}
 
 	Timer t;
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -526,6 +548,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		}
 
 	}
+
 	@Override
 	public void mouseMoved(MouseEvent m) {
 		// TODO Auto-generated method stub
@@ -533,6 +556,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		bea0.spin(bea0.getAngle(m.getX() - 2, m.getY() - 20 - camY));
 		// System.out.println((mouse[0]-p[0])+","+(mouse[1]-p[1]));
 	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
@@ -548,8 +572,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -578,7 +600,5 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	public void mouseDragged(MouseEvent arg0) {
 
 	}
-
-
 
 }
