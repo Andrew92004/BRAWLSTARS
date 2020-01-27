@@ -12,6 +12,23 @@ public class Brawler {
 	protected int HP;
 	protected Image img;
 	protected int x, y;
+
+	public double getVx() {
+		return vx;
+	}
+
+	public void setVx(double vx) {
+		this.vx = vx;
+	}
+
+	public double getVy() {
+		return vy;
+	}
+
+	public void setVy(double vy) {
+		this.vy = vy;
+	}
+
 	protected double vx, vy;
 	protected double vel;
 	protected double theta;
@@ -25,6 +42,7 @@ public class Brawler {
 	protected boolean isHidden;
 	protected int closest;
 	protected int furthest;
+
 	public Brawler(int t, int[] p) {
 		team = t;
 		x = p[0];
@@ -53,6 +71,7 @@ public class Brawler {
 			showImage = false;
 		}
 	}
+
 
 	public void constrainMove(Crate[] crates) {
 		for (int i = 0; i < crates.length; i++) {
@@ -85,21 +104,17 @@ public class Brawler {
 			Grass c = bush[i];
 			if (x + 120 > c.getX() + 5 && x + 5 < c.getX() + 64) {
 				if (y + 120 >= c.getY() && y <= c.getY() + 32 && vy > 0) {
-					vy = 0;
 					isHidden = true;
 				}
 				if (y + 64 >= c.getY() + 32 && y <= c.getY() + 64 && vy < 0) {
-					vy = 0;
 					isHidden = true;
 				}
 			}
 			if (y + 120 > c.getY() + 5 && y + 5 < c.getY() + 64) {
 				if (x + 120 >= c.getX() && x <= c.getX() + 32 && vx > 0) {
-					vx = 0;
 					isHidden = true;
 				}
 				if (x + 64 >= c.getX() + 32 && x <= c.getX() + 64 && vx < 0) {
-					vx = 0;
 					isHidden = true;
 				}
 			}
