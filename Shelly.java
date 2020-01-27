@@ -5,7 +5,6 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Shelly extends Brawler {
 	double scale;
@@ -27,6 +26,7 @@ public class Shelly extends Brawler {
 	}
 
 	public void shoot(ArrayList<Bullet> bullets) {
+		// System.out.println("shelly shot");
 		if (ammo > 0) {
 			for (int i = 0; i < 5; i++) {
 				bullets.add(new Bullet(team, x + 64, y + 64, 10, theta - Math.PI / 8 + (i * Math.PI / 20), 420, 10, 0));
@@ -46,93 +46,136 @@ public class Shelly extends Brawler {
 					reload = reloadSpeed;
 			}
 		}
-		if (ammo>3) ammo = 3;
+		if (ammo > 3)
+			ammo = 3;
 		if (combatTimer > 0) {
 			combatTimer -= 1 / (double) fps;
 		}
 		if (combatTimer <= 0) {
 			heal();
 		}
-		if (HP<=0){
+		if (HP <= 0) {
 			HP = maxHP;
 			x = xi;
 			y = yi;
 			ammo = 3;
 			spin(0);
-			init(x,y);
+			init(x, y);
 		}
 		move();
 	}
 
-	public void runBot(ArrayList<Bullet> bullets, Brawler brl1,Brawler brl2, Brawler brl3, Safe safe) {
+	public void runBot(ArrayList<Bullet> bullets, Brawler brl1, Brawler brl2, Brawler brl3, Safe safe) {
 		Brawler tar1 = brl1;
 		Brawler tar2 = brl2;
 		Brawler tar3 = brl3;
-		
-		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
-			tar1= safe;
+		// closest
+		if (Math.abs(brl1.getX() - x) < Math.abs(brl2.getX() - x)
+				&& Math.abs(brl1.getY() - y) < Math.abs(brl2.getY() - y)) {
+			closest = 1;
+		} else if (Math.abs(brl2.getX() - x) < Math.abs(brl3.getX() - x)
+				&& Math.abs(brl2.getY() - y) < Math.abs(brl3.getY() - y)) {
+			closest = 2;
+		} else if (Math.abs(brl3.getX() - x) < Math.abs(brl1.getX() - x)
+				&& Math.abs(brl3.getY() - y) < Math.abs(brl1.getY() - y)) {
+			closest = 3;
 		}
-		if ((x - tar1.getX()) * (x - tar1.getX()) + (y - tar1.getY()) * (y - tar1.getY()) <= 200 * 200) {
+		// furthest
+		if (Math.abs(brl1.getX() - x) > Math.abs(brl2.getX() - x)
+				&& Math.abs(brl1.getY() - y) > Math.abs(brl2.getY() - y)) {
+			furthest = 1;
+		} else if (Math.abs(brl2.getX() - x) > Math.abs(brl3.getX() - x)
+				&& Math.abs(brl2.getY() - y) > Math.abs(brl3.getY() - y)) {
+			furthest = 2;
+		} else if (Math.abs(brl3.getX() - x) > Math.abs(brl1.getX() - x)
+				&& Math.abs(brl3.getY() - y) > Math.abs(brl1.getY() - y)) {
+			furthest = 3;
+		}
+		if (closest == 1) {
+			tar1 = brl1;
+		} else if (closest == 2) {
+			tar1 = brl2;
+		} else if (closest == 3) {
+			tar1 = brl3;
+		}
+
+		if (furthest == 1) {
+			tar3 = brl1;
+		} else if (furthest == 2) {
+			tar3 = brl2;
+		} else if (furthest == 3) {
+			tar3 = brl3;
+		}
+
+		if (team != safe.team) {
+			if (Math.abs(safe.getX() - x) < 100 && Math.abs(safe.getY() - y) < 100) {
+				isPriority = true;
+			}
+		}
+		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
+			tar1 = safe;
+		}
+		if ((x - tar1.getX()) * (x - tar1.getX()) + (y - tar1.getY()) * (y - tar1.getY()) <= 300 * 300) {
 			spin(getAngle(tar1.getX() + 64, tar1.getY() + 128));
 			if (ammo == 3) {
 				shoot(bullets);
 			}
 		}
-		if (tar1.getX() > x + 64)
+		if (tar1.getX() > x + 32)
 			controlMove(2, -1);
-		else if (tar1.getX() + 64 < x)
+		else if (tar1.getX() + 32 < x)
 			controlMove(1, -1);
 		else
 			controlMove(0, -1);
 
-		if (tar1.getY() > y + 64)
+		if (tar1.getY() > y + 32)
 			controlMove(-1, 2);
-		else if (tar1.getY() + 64 < x)
+		else if (tar1.getY() + 32 < x)
 			controlMove(-1, 1);
 		else
 			controlMove(-1, 0);
 		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
-			tar2= safe;
+			tar2 = safe;
 		}
-		if ((x - tar2.getX()) * (x - tar2.getX()) + (y - tar2.getY()) * (y - tar2.getY()) <= 200 * 200) {
+		if ((x - tar2.getX()) * (x - tar2.getX()) + (y - tar2.getY()) * (y - tar2.getY()) <= 300 * 300) {
 			spin(getAngle(tar2.getX() + 64, tar2.getY() + 128));
 			if (ammo == 3) {
 				shoot(bullets);
 			}
 		}
-		if (tar2.getX() > x + 64)
+		if (tar2.getX() > x + 32)
 			controlMove(2, -1);
-		else if (tar2.getX() + 64 < x)
+		else if (tar2.getX() + 32 < x)
 			controlMove(1, -1);
 		else
 			controlMove(0, -1);
 
-		if (tar2.getY() > y + 64)
+		if (tar2.getY() > y + 32)
 			controlMove(-1, 2);
-		else if (tar2.getY() + 64 < x)
+		else if (tar2.getY() + 32 < x)
 			controlMove(-1, 1);
 		else
 			controlMove(-1, 0);
 
 		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
-			tar3= safe;
+			tar3 = safe;
 		}
-		if ((x - tar3.getX()) * (x - tar3.getX()) + (y - tar3.getY()) * (y - tar3.getY()) <= 200 * 200) {
+		if ((x - tar3.getX()) * (x - tar3.getX()) + (y - tar3.getY()) * (y - tar3.getY()) <= 300 * 300) {
 			spin(getAngle(tar3.getX() + 64, tar3.getY() + 128));
 			if (ammo == 3) {
 				shoot(bullets);
 			}
 		}
-		if (tar3.getX() > x + 64)
+		if (tar3.getX() > x + 32)
 			controlMove(2, -1);
-		else if (tar3.getX() + 64 < x)
+		else if (tar3.getX() + 32 < x)
 			controlMove(1, -1);
 		else
 			controlMove(0, -1);
 
-		if (tar3.getY() > y + 64)
+		if (tar3.getY() > y + 32)
 			controlMove(-1, 2);
-		else if (tar3.getY() + 64 < x)
+		else if (tar3.getY() + 32 < x)
 			controlMove(-1, 1);
 		else
 			controlMove(-1, 0);
