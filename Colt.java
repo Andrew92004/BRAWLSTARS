@@ -25,7 +25,7 @@ public class Colt extends Brawler {
 	}
 
 	public void shoot(ArrayList<Bullet> bullets) {
-	//	System.out.println("colt shot");
+		// System.out.println("colt shot");
 		if (ammo > 0) {
 			ammo--;
 			reload = reloadSpeed;
@@ -78,7 +78,7 @@ public class Colt extends Brawler {
 		Brawler tar1 = brl1;
 		Brawler tar2 = brl2;
 		Brawler tar3 = brl3;
-		//closest
+		// closest
 		if (Math.abs(brl1.getX() - x) < Math.abs(brl2.getX() - x)
 				&& Math.abs(brl1.getY() - y) < Math.abs(brl2.getY() - y)) {
 			closest = 1;
@@ -89,7 +89,7 @@ public class Colt extends Brawler {
 				&& Math.abs(brl3.getY() - y) < Math.abs(brl1.getY() - y)) {
 			closest = 3;
 		}
-		//furthest
+		// furthest
 		if (Math.abs(brl1.getX() - x) > Math.abs(brl2.getX() - x)
 				&& Math.abs(brl1.getY() - y) > Math.abs(brl2.getY() - y)) {
 			furthest = 1;
@@ -100,23 +100,21 @@ public class Colt extends Brawler {
 				&& Math.abs(brl3.getY() - y) > Math.abs(brl1.getY() - y)) {
 			furthest = 3;
 		}
-		if(closest ==1) {
-			 tar1 = brl1;
-		} else if(closest == 2) {
-			 tar1 = brl2;
-		} else if(closest == 3) {
-			 tar1 = brl3;
+		if (closest == 1) {
+			tar1 = brl1;
+		} else if (closest == 2) {
+			tar1 = brl2;
+		} else if (closest == 3) {
+			tar1 = brl3;
 		}
 
-		if(furthest ==1) {
-			 tar3 = brl1;
-		} else if(furthest == 2) {
-			 tar3 = brl2;
-		} else if(furthest == 3) {
-			 tar3 = brl3;
+		if (furthest == 1) {
+			tar3 = brl1;
+		} else if (furthest == 2) {
+			tar3 = brl2;
+		} else if (furthest == 3) {
+			tar3 = brl3;
 		}
-
-	
 
 		if (team != safe.team) {
 			if (Math.abs(safe.getX() - x) < 100 && Math.abs(safe.getY() - y) < 100) {
@@ -129,9 +127,17 @@ public class Colt extends Brawler {
 		if ((x - tar1.getX()) * (x - tar1.getX()) + (y - tar1.getY()) * (y - tar1.getY()) <= 500 * 500) {
 			spin(getAngle(tar1.getX() + 64, tar1.getY() + 64));
 			if (ammo == 3) {
+
 				shoot(bullets);
 			}
-		}
+		} /*
+			 * else { // if noone is in range, automove till it finds someone if (x > 0 && x
+			 * < 1220 && y > -64 && y < 1600) { controlMove(0, 2); //find out how to make
+			 * these move for a distance instead of just for a split second if (rHitCrate) {
+			 * controlMove(1, 0); } else if (lHitCrate) { controlMove(2, 0); } else if
+			 * (uHitCrate) { controlMove(0, 2); } else if (dHitCrate) { controlMove(0, 1); }
+			 * } }
+			 */
 		if (tar1.getX() > x + 128)
 			controlMove(2, -1);
 		else if (tar1.getX() + 128 < x)
@@ -153,6 +159,10 @@ public class Colt extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
+		} else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
+
 		}
 		if (tar2.getX() > x + 128)
 			controlMove(2, -1);
@@ -176,6 +186,10 @@ public class Colt extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
+		} else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
+
 		}
 		if (tar3.getX() > x + 128)
 			controlMove(2, -1);
