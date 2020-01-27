@@ -146,6 +146,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			g.setFont(notMyFont);
 			g.drawString("*insert happy noises here*", 380, 800);
 			g.drawString(".-.", 650, 875);
+			safe0.setHP(100000);
 		}
 
 		if (safe0.getHP() <= 0) {
@@ -160,6 +161,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			g.setFont(notMyFont);
 			g.drawString("U LOST TO SCUFFED BOTS", 325, 800);
 			g.drawString("BRUH U TRASH", 450, 875);
+			safe1.setHP(100000);
 		}
 
 	}
@@ -170,6 +172,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			Bullet b = bullets.get(i);
 			if (b.bulletTimer == 0) {
 				bullets.remove(i);
+				i--;
+				continue;
+				
 			}
 			b.move();
 			Brawler[] tars = new Brawler[6];
