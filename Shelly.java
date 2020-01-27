@@ -29,7 +29,7 @@ public class Shelly extends Brawler {
 		// System.out.println("shelly shot");
 		if (ammo > 0) {
 			for (int i = 0; i < 5; i++) {
-				bullets.add(new Bullet(team, x + 64, y + 64, 10, theta - Math.PI / 8 + (i * Math.PI / 20), 420, 10, 0));
+				bullets.add(new Bullet(team, x + 64, y + 64, 10, theta - Math.PI / 8 + (i * Math.PI / 20), 420, 2, 0));
 			}
 			ammo--;
 			reload = reloadSpeed;
@@ -120,20 +120,26 @@ public class Shelly extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
-		}
-		if (tar1.getX() > x + 32)
-			controlMove(2, -1);
-		else if (tar1.getX() + 32 < x)
-			controlMove(1, -1);
-		else
-			controlMove(0, -1);
+		} else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
 
-		if (tar1.getY() > y + 32)
+		}
+		if (tar1.getX() > x + 16) {
+			controlMove(2, -1);
+		} else if (tar1.getX() + 16 < x) {
+			controlMove(1, -1);
+		} else {
+			controlMove(0, -1);
+		}
+
+		if (tar1.getY() > y + 16) {
 			controlMove(-1, 2);
-		else if (tar1.getY() + 32 < x)
+		} else if (tar1.getY() + 16 < x) {
 			controlMove(-1, 1);
-		else
+		} else {
 			controlMove(-1, 0);
+		}
 		if ((x - safe.getX()) * (x - safe.getX()) + (y - safe.getY()) * (y - safe.getY()) <= 400 * 400) {
 			tar2 = safe;
 		}
@@ -142,17 +148,21 @@ public class Shelly extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
+		}else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
+
 		}
-		if (tar2.getX() > x + 32)
+		if (tar2.getX() > x + 16)
 			controlMove(2, -1);
-		else if (tar2.getX() + 32 < x)
+		else if (tar2.getX() + 16 < x)
 			controlMove(1, -1);
 		else
 			controlMove(0, -1);
 
-		if (tar2.getY() > y + 32)
+		if (tar2.getY() > y + 16)
 			controlMove(-1, 2);
-		else if (tar2.getY() + 32 < x)
+		else if (tar2.getY() + 16 < x)
 			controlMove(-1, 1);
 		else
 			controlMove(-1, 0);
@@ -165,17 +175,21 @@ public class Shelly extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
+		}else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
+
 		}
-		if (tar3.getX() > x + 32)
+		if (tar3.getX() > x + 16)
 			controlMove(2, -1);
-		else if (tar3.getX() + 32 < x)
+		else if (tar3.getX() + 16 < x)
 			controlMove(1, -1);
 		else
 			controlMove(0, -1);
 
-		if (tar3.getY() > y + 32)
+		if (tar3.getY() > y + 16)
 			controlMove(-1, 2);
-		else if (tar3.getY() + 32 < x)
+		else if (tar3.getY() + 16 < x)
 			controlMove(-1, 1);
 		else
 			controlMove(-1, 0);
