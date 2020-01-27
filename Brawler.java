@@ -42,6 +42,10 @@ public class Brawler {
 	protected boolean isHidden;
 	protected int closest;
 	protected int furthest;
+	protected boolean dHitCrate;
+	protected boolean rHitCrate;
+	protected boolean lHitCrate;
+	protected boolean uHitCrate;
 
 	public Brawler(int t, int[] p) {
 		team = t;
@@ -55,6 +59,10 @@ public class Brawler {
 		showImage = true;
 		isPriority = false;
 		isHidden = false;
+		lHitCrate = false;
+		rHitCrate = false;
+		dHitCrate = false;
+		rHitCrate = false;
 	}
 
 	public void heal() {
@@ -72,8 +80,8 @@ public class Brawler {
 		}
 	}
 
-
 	public void constrainMove(Crate[] crates) {
+
 		for (int i = 0; i < crates.length; i++) {
 			if (crates[i] == null)
 				continue;
@@ -81,17 +89,25 @@ public class Brawler {
 			if (x + 120 > c.getX() + 5 && x + 5 < c.getX() + 64) {
 				if (y + 120 >= c.getY() && y <= c.getY() + 32 && vy > 0) {
 					vy = 0;
+					dHitCrate = true;
+
 				}
 				if (y + 64 >= c.getY() + 32 && y <= c.getY() + 64 && vy < 0) {
 					vy = 0;
+					uHitCrate = true;
+
 				}
 			}
 			if (y + 120 > c.getY() + 5 && y + 5 < c.getY() + 64) {
 				if (x + 120 >= c.getX() && x <= c.getX() + 32 && vx > 0) {
 					vx = 0;
+					rHitCrate = true;
+
 				}
 				if (x + 64 >= c.getX() + 32 && x <= c.getX() + 64 && vx < 0) {
 					vx = 0;
+					lHitCrate = true;
+
 				}
 			}
 		}
@@ -138,6 +154,9 @@ public class Brawler {
 	};
 
 	public void controlMove(int rl, int ud) {
+		// 2 = forward
+		// -1 = backwards
+		// 0 = stop
 		if (rl != -1) {
 			if (rl == 2)
 				vx = vel;
