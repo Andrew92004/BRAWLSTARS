@@ -22,7 +22,7 @@ public class Bullet {
 		this.damage = damage;
 		this.size = size;
 		this.effect = effect;
-		bulletTimer = 40;
+		bulletTimer = 30;
 		//System.out.println(theta);
 	}
 	
