@@ -125,6 +125,10 @@ public class Bea extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
+		}else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
+
 		}
 		if (tar1.getX() > x + 256)
 			controlMove(2, -1);
@@ -147,6 +151,10 @@ public class Bea extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
+		}else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
+
 		}
 		if (tar2.getX() > x + 256)
 			controlMove(2, -1);
@@ -170,6 +178,10 @@ public class Bea extends Brawler {
 			if (ammo == 3) {
 				shoot(bullets);
 			}
+		}else { // if noone is in range, automove till it finds someone
+			if (x > 0 && x < 1220 && y > -64 && y < 1600)
+				controlMove(0, 2);
+
 		}
 		if (tar3.getX() > x + 256)
 			controlMove(2, -1);
